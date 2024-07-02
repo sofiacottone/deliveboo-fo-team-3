@@ -11,15 +11,15 @@ export default {
                 },
                 {
                     label: 'Chi siamo',
-                    routeName: 'chi-siamo'
+                    routeName: 'about'
                 },
                 {
                     label: 'Ristoranti',
-                    routeName: 'ristoranti'
+                    routeName: 'restaurants'
                 },
                 {
                     label: 'Carrello',
-                    routeName: 'carrello'
+                    routeName: 'checkout'
                 }
             ]
         };
@@ -42,9 +42,9 @@ export default {
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item" v-for="link in menuLinks">
-                            <router-link class="nav-link" activeClass="active" aria-current="page" :to="{ name: link.routeName}">{{ link.label }}</router-link>
+                            <router-link class="nav-link" activeClass="ms-active" aria-current="page" :to="{ name: link.routeName }">{{ link.label }}</router-link>
                         </li>
-                        <button class="btn btn-primary">Registrati o accedi</button>
+                        <button class="ms-btn-custom">Registrati o accedi</button>
                     </ul>
                 </div>
             </div>
@@ -64,10 +64,32 @@ export default {
     }
 
     .nav-item > .nav-link {
-        font-family: $primary-font;
+        font-family: $secondary-font;
+        font-weight: 500;
         font-size: 16px;
         text-transform: uppercase;
-        color: $main-text-color !important;
+        // color: $main-text-color !important;
+
+        &.ms-active {
+            color: $primary-color !important;
+        }
     }
+
+    .ms-btn-custom {
+    background-color: #fff;
+    color: $primary-color;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
+    border: 2px solid $primary-color;
+    transition: transform 0.5s ease;
+
+    &:hover {
+        background-color: $primary-color;
+        color: #fff;
+        transform: scale(1.1);
+    }
+}
 
 </style>
