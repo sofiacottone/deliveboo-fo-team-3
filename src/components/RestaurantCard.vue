@@ -5,19 +5,51 @@
         props: {
             restaurantDetail: Object
         },
+
+        data() {
+            return {
+                getImageUrl(name) {
+                    return new URL(`../assets/img/${name}`, import.meta.url).href;
+                }
+            }
+        }
     }
 
 </script>
 
 <template>
 
-    <div class="card" style="width: 18rem;">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-            <h5 class="card-title">{{ restaurantDetail.restaurant_name}}</h5>
-            <p class="card-text">{{ restaurantDetail.description }}</p>
-            <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }">Ordina qui</router-link>
-        </div>
-    </div>
+    <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }"><div class="card" style="width: 18rem;">
+            <img :src="restaurantDetail.image ? restaurantDetail.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurantDetail.restaurant_name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
+                <p class="card-text">{{ restaurantDetail.description }}</p>
+                <button class="ms-btn-custom">Ordina qui</button> 
+            </div>
+    </div></router-link>
 
 </template>
+
+<style lang="scss" scoped>
+  @use '../style/generic';
+  @use '../style/partials/variables' as *;
+
+       .ms-btn-custom {
+        background-color: #fff;
+        font-family: $secondary-font;
+        text-transform: uppercase;
+        color: $primary-color;
+        text-decoration: none;
+        padding: 8px 8px 4px;
+        border-radius: 8px;
+        box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
+        border: 2px solid $primary-color;
+        transition: transform 0.5s ease;
+
+            &:hover {
+                background-color: $primary-color;
+                color: #fff;
+                transform: scale(1.1);
+            }
+        }
+</style>

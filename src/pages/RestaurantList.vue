@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-    <div class="container">
+    <div class="container py-3">
         <h3>I nostri ristoranti in tutta Roma</h3>
         <div class="row">
             <div class="col my-3" v-for="restaurant in restaurants" :key="restaurant.id">
