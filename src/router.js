@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AppHome from './pages/AppHome.vue';
 import AppAbout from './pages/AppAbout.vue';
 import RestaurantList from './pages/RestaurantList.vue';
+import SingleRestaurant from './pages/SingleRestaurant.vue';
 import AppCheckout from './pages/AppCheckout.vue';
 
 const router = createRouter({
@@ -22,6 +23,11 @@ const router = createRouter({
             path: '/ristoranti',
             name: 'restaurants',
             component: RestaurantList
+        },
+        {
+            path: '/ristoranti/:slug',
+            name: 'single-restaurant',
+            component: SingleRestaurant
         },
         {
             path: '/checkout',

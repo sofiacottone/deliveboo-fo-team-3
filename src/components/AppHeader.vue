@@ -46,7 +46,10 @@ export default {
                         </li>
                         
                     </ul>
-                    <a href="http://127.0.0.1:8000/" target="_blank"><button class="ms-btn-custom">Registrati o accedi</button></a>
+                    <span class="ps-3">
+                        <a href="http://127.0.0.1:8000/" target="_blank"><button class="ms-btn-custom">Registrati o accedi</button></a>
+                    </span>
+                    
                 </div>
             </div>
         </nav>

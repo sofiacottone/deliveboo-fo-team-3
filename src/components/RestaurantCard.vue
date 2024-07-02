@@ -16,7 +16,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ restaurantDetail.restaurant_name}}</h5>
             <p class="card-text">{{ restaurantDetail.description }}</p>
-            <a href="#" class="btn btn-primary">Ordina qui</a>
+            <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }">Ordina qui</router-link>
         </div>
     </div>
 
