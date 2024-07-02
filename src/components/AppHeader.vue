@@ -20,10 +20,6 @@ export default {
                 {
                     label: 'Carrello',
                     routeName: 'carrello'
-                },
-                {
-                    label: 'Registrati o accedi',
-                    routeName: 'registrati'
                 }
             ]
         };
@@ -46,7 +42,7 @@ export default {
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item" v-for="link in menuLinks">
-                            <a class="nav-link active" aria-current="page" href="#">{{ link.label }}</a>
+                            <router-link class="nav-link" activeClass="active" aria-current="page" :to="{ name: link.routeName}">{{ link.label }}</router-link>
                         </li>
                         <button class="btn btn-primary">Registrati o accedi</button>
                     </ul>
