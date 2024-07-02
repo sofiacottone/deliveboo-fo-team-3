@@ -10,6 +10,17 @@
             return {
                 getImageUrl(name) {
                     return new URL(`../assets/img/${name}`, import.meta.url).href;
+                },
+
+                truncateText(text) {
+                    // Se il testo è più lungo di 100 caratteri
+                    // lo taglio a 100 caratteri e aggiungo ...
+                    // altrimenti il testo non lo tocco
+                    if(text.length > 100) {
+                        return text.substr(0, 99) + '...';
+                    }
+
+                    return text;
                 }
             }
         }
