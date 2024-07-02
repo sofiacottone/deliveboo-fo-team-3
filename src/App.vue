@@ -1,5 +1,11 @@
 <script>
+
+import AppHeader from './components/AppHeader.vue';
+
 export default {
+    components: {
+        AppHeader,
+    },
     data() {
         return {
 
@@ -15,12 +21,12 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        Hello World!
-    </div>
+    <AppHeader></AppHeader>
+    
 </template>
 
 <style lang="scss">
-@use './style/generic';
-@use './style/partials/variables' as *;
+    @use './style/generic';
+    @use './style/partials/variables' as *;
+
 </style>
