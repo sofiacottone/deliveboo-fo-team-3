@@ -22,11 +22,12 @@ export default {
 
 <template>
     <AppHeader></AppHeader>
-    
+    <main>
+        <router-view></router-view>
+    </main>
 </template>
 
 <style lang="scss">
-    @use './style/generic';
-    @use './style/partials/variables' as *;
-
+@use './style/generic';
+@use './style/partials/variables' as *;
 </style>
