@@ -46,7 +46,7 @@ export default {
                         </li>
                         
                     </ul>
-                    <button class="ms-btn-custom">Registrati o accedi</button>
+                    <a href="http://127.0.0.1:8000/" target="_blank"><button class="ms-btn-custom">Registrati o accedi</button></a>
                 </div>
             </div>
         </nav>
@@ -69,7 +69,6 @@ export default {
         font-weight: 500;
         font-size: 16px;
         text-transform: uppercase;
-        // color: $main-text-color !important;
 
         &.ms-active {
             color: $primary-color !important;
