@@ -39,13 +39,14 @@ export default {
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="collapse navbar-collapse align-items-baseline justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item" v-for="link in menuLinks">
                             <router-link class="nav-link" activeClass="ms-active" aria-current="page" :to="{ name: link.routeName }">{{ link.label }}</router-link>
                         </li>
-                        <button class="ms-btn-custom">Registrati o accedi</button>
+                        
                     </ul>
+                    <button class="ms-btn-custom">Registrati o accedi</button>
                 </div>
             </div>
         </nav>
@@ -77,9 +78,11 @@ export default {
 
     .ms-btn-custom {
     background-color: #fff;
+    font-family: $secondary-font;
+    text-transform: uppercase;
     color: $primary-color;
     text-decoration: none;
-    padding: 8px;
+    padding: 8px 8px 4px;
     border-radius: 8px;
     box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
     border: 2px solid $primary-color;
