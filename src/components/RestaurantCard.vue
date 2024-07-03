@@ -1,4 +1,5 @@
 <script>
+import { store } from '../store.js';
 
 export default {
     name: 'RestaurantCard',
@@ -8,20 +9,23 @@ export default {
 
     data() {
         return {
-            getImageUrl(name) {
-                return new URL(`../assets/img/${name}`, import.meta.url).href;
-            },
+            store
+        }
+    },
+    methods: {
+        getImageUrl(name) {
+            return new URL(`../assets/img/${name}`, import.meta.url).href;
+        },
 
-            truncateText(text) {
-                // Se il testo è più lungo di 100 caratteri
-                // lo taglio a 100 caratteri e aggiungo ...
-                // altrimenti il testo non lo tocco
-                if (text.length > 100) {
-                    return text.substr(0, 99) + '...';
-                }
-
-                return text;
+        truncateText(text) {
+            // Se il testo è più lungo di 100 caratteri
+            // lo taglio a 100 caratteri e aggiungo ...
+            // altrimenti il testo non lo tocco
+            if (text.length > 100) {
+                return text.substr(0, 99) + '...';
             }
+
+            return text;
         }
     }
 }
@@ -32,8 +36,9 @@ export default {
 
     <router-link :to="{ name: 'single-restaurant', params: { slug: restaurantDetail.slug } }">
         <div class="card w-100 h-100 shadow-sm">
-            <img :src="restaurantDetail.image ? restaurantDetail.image : getImageUrl('fast-food.webp')"
+            <img :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')"
                 class="card-img-top" :alt="restaurantDetail.restaurant_name">
+
             <div class="card-body">
                 <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
                 <button class="ms-btn-custom">Ordina qui</button>
@@ -64,5 +69,11 @@ export default {
         color: #fff;
         transform: scale(1.1);
     }
+}
+
+.card-img-top {
+    max-height: 170px;
+    object-fit: cover;
+    object-position: center;
 }
 </style>
