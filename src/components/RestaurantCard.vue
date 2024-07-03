@@ -11,17 +11,6 @@
                 getImageUrl(name) {
                     return new URL(`../assets/img/${name}`, import.meta.url).href;
                 },
-
-                truncateText(text) {
-                    // Se il testo è più lungo di 100 caratteri
-                    // lo taglio a 100 caratteri e aggiungo ...
-                    // altrimenti il testo non lo tocco
-                    if(text.length > 100) {
-                        return text.substr(0, 99) + '...';
-                    }
-
-                    return text;
-                }
             }
         }
     }
@@ -29,7 +18,6 @@
 </script>
 
 <template>
-
     <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }"><div class="card" style="width: 18rem;">
             <img :src="restaurantDetail.image ? restaurantDetail.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurantDetail.restaurant_name }}">
             <div class="card-body">
@@ -38,7 +26,6 @@
                 <button class="ms-btn-custom">Ordina qui</button> 
             </div>
     </div></router-link>
-
 </template>
 
 <style lang="scss" scoped>
