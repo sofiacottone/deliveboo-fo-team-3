@@ -21,9 +21,9 @@ export default {
 
         getRestaurantList() {
             axios.get(`${this.store.apiBaseUrl}/api/restaurants`)
-            .then((response) => {
-                this.restaurants = response.data.results;
-            })
+                .then((response) => {
+                    this.restaurants = response.data.results;
+                })
         }
     },
 
@@ -36,11 +36,11 @@ export default {
 <template>
     <div class="container py-3">
         <h3>I nostri ristoranti in tutta Roma</h3>
-        <div class="row">
+        <div class="row row-cols-4">
             <div class="col my-3" v-for="restaurant in restaurants" :key="restaurant.id">
                 <RestaurantCard :restaurantDetail="restaurant"></RestaurantCard>
             </div>
         </div>
     </div>
-    
+
 </template>
