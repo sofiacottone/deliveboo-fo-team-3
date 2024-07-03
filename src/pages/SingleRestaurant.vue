@@ -1,17 +1,20 @@
 <script>
 import axios from 'axios';
 import { store } from '../store.js';
+import ShoppingCart from '../components/ShoppingCart.vue';
+
 
 export default {
     name: 'SingleRestaurant',
-
+    components: {
+        ShoppingCart
+    },
     data() {
         return {
             store,
             restaurant: {},
         }
     },
-
     methods: {
         getSingleRestaurant() {
             axios.get(`${this.store.apiBaseUrl}/api/restaurants/${this.$route.params.slug}`)
@@ -53,21 +56,26 @@ export default {
             </div>
         </div>
         <div class="row p-2 pt-3">
-            <h2>Piatti</h2>
-            <div class="hstack gap-3">
-                <div class="col-3 border rounded h-100 pb-2" v-for=" dish  in  restaurant.dishes ">
-                    <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
-                        class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
-                    <div class="py-2 text-center fw-bold">{{ dish.name }}</div>
-                    <div class="d-flex justify-content-center align-items-center gap-2 px-2">
-                        <div class="border rounded w-75 text-center ms-primary" role="button">
-                            <i class="fa-solid fa-trash p-1"></i>
-                        </div>
-                        <div class="border rounded w-75 text-center ms-primary" role="button">
-                            <i class="fa-solid fa-plus p-1"></i>
+            <div class="d-flex justify-content-between">
+                <div class="col">
+                    <h2>Piatti</h2>
+                    <div class="hstack gap-3">
+                        <div class="col-3 border rounded h-100 pb-2" v-for=" dish  in  restaurant.dishes ">
+                            <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
+                                class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
+                            <div class="py-2 text-center fw-bold">{{ dish.name }}</div>
+                            <div class="d-flex justify-content-center align-items-center gap-2 px-2">
+                                <div class="border rounded w-75 text-center ms-primary" role="button">
+                                    <i class="fa-solid fa-trash p-1"></i>
+                                </div>
+                                <div class="border rounded w-75 text-center ms-primary" role="button">
+                                    <i class="fa-solid fa-plus p-1"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <ShoppingCart></ShoppingCart>
             </div>
         </div>
     </div>
