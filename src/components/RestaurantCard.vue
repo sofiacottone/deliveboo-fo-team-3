@@ -17,20 +17,11 @@ export default {
             return new URL(`../assets/img/${name}`, import.meta.url).href;
         },
 
-<<<<<<< HEAD
-        truncateText(text) {
-            // Se il testo è più lungo di 100 caratteri
-            // lo taglio a 100 caratteri e aggiungo ...
-            // altrimenti il testo non lo tocco
-            if (text.length > 100) {
-                return text.substr(0, 99) + '...';
-=======
         data() {
             return {
                 getImageUrl(name) {
                     return new URL(`../assets/img/${name}`, import.meta.url).href;
                 },
->>>>>>> filter-category-homepage
             }
 
             return text;
@@ -41,28 +32,13 @@ export default {
 </script>
 
 <template>
-<<<<<<< HEAD
-
-    <router-link :to="{ name: 'single-restaurant', params: { slug: restaurantDetail.slug } }">
-        <div class="card w-100 h-100 shadow-sm">
-            <img :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')"
-                class="card-img-top" :alt="restaurantDetail.restaurant_name">
-
-=======
     <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }"><div class="card" style="width: 18rem;">
-            <img :src="restaurantDetail.image ? restaurantDetail.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurantDetail.restaurant_name }}">
->>>>>>> filter-category-homepage
+        <img :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')">    
             <div class="card-body">
                 <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
                 <button class="ms-btn-custom">Ordina qui</button>
             </div>
-<<<<<<< HEAD
-        </div>
-    </router-link>
-
-=======
     </div></router-link>
->>>>>>> filter-category-homepage
 </template>
 
 <style lang="scss" scoped>

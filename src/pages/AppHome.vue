@@ -160,7 +160,9 @@ export default {
                                 <span class="badge text-bg-primary">{{ category.name }}</span>
                             </div>
                         </div>
-                        <button class="ms-btn-custom">Ordina qui</button> 
+                        <router-link :to="{ name: 'single-restaurant', params: {slug: restaurant.slug} }">
+                            <button class="ms-btn-custom">Ordina qui</button> 
+                        </router-link>
                     </div>
                 </div>
             </div>
