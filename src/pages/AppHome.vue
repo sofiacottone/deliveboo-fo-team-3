@@ -10,6 +10,8 @@ export default {
         return {
             store,
             restaurants: [],
+            filteredRestaurants: [],
+            selectedCategories: [],
             categories: [],
             categoryListIntern: [
                 {
@@ -63,10 +65,16 @@ export default {
     methods: {
 
         getRestaurantList() {
+
+            // const queryParams = {
+            //     categories: this.selectedCategories.join(',')
+            // }
+
             axios.get(`${this.store.apiBaseUrl}/api/restaurants`)
             .then((response) => {
                 this.restaurants = response.data.results;
             });
+            
         },
 
         getCategoryList() {
@@ -74,9 +82,34 @@ export default {
             .then((response) => {
                 this.categories = response.data.results;
             });
-        }
+        },
 
-        
+        updateCategories(event) {
+            const category = event.target.value; // Ottiene il valore della categoria dalla checkbox
+            if (event.target.checked) { // Se la checkbox è stata selezionata
+                this.selectedCategories.push(category); // Aggiungi la categoria all'array delle categorie selezionate
+            } else { // Se la checkbox è stata deselezionata
+                const index = this.selectedCategories.indexOf(category); // Trova l'indice della categoria nell'array
+                if (index > -1) { // Se la categoria è presente nell'array
+                    this.selectedCategories.splice(index, 1); // Rimuovila dall'array
+                }
+            }
+            this.filterRestaurants(); // Filtra i ristoranti in base alle categorie selezionate
+        },
+
+        filterRestaurants() {
+            if (this.selectedCategories.length === 0) {
+                this.filteredRestaurants = []; // Se non ci sono categorie selezionate, mostra un array vuoto
+            } else {
+                this.filteredRestaurants = this.restaurants.filter(restaurant => 
+                    this.selectedCategories.every(selectedCategory => 
+                        restaurant.categories.some(restaurantCategory => 
+                            restaurantCategory.name === selectedCategory
+                        )
+                    )
+                );
+            }
+        }
     },
 
     mounted() {
@@ -98,7 +131,12 @@ export default {
             <div class="col-8 d-flex flex-wrap gap-3 justify-content-center">
                 <div v-for="category in categories">
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" :id="category.name">
+                        <input 
+                        @change="updateCategories"
+                        :value="category.name"
+                        type="checkbox" class="btn-check" 
+                        :id="category.name"
+                        >
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{ categoryIntern.flag }}</span>
@@ -112,7 +150,7 @@ export default {
     </div>
     <div class="container py-3">
         <div class="row row-cols-3 flex-row">
-            <div class="col mb-3" v-for="restaurant in restaurants">
+            <div class="col mb-3" v-for="restaurant in filteredRestaurants">
                 <div class="card w-100 h-100">
                     <!-- <img :src="restaurant.image ? category.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurant.restaurant_name }}"> -->
                     <div class="card-body">
@@ -122,7 +160,6 @@ export default {
                                 <span class="badge text-bg-primary">{{ category.name }}</span>
                             </div>
                         </div>
-                        
                         <button class="ms-btn-custom">Ordina qui</button> 
                     </div>
                 </div>
