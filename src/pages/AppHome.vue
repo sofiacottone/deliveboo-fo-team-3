@@ -133,10 +133,10 @@ export default {
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         <input @change="updateCategories" :value="category.name" type="checkbox" class="btn-check"
                             :id="category.name">
-                        <label class="btn btn-outline-primary" :for="category.name">
+                        <label class="ms-button" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
-                    categoryIntern.flag }}</span>
+                                    categoryIntern.flag }}</span>
                             </span>
                             {{ category.name }}
                         </label>
@@ -196,7 +196,15 @@ export default {
     font-size: 30px;
 }
 
-.badge{
+.badge {
     background-color: $primary-color;
+}
+
+.ms-button {
+    background-color: #fff;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+    border-radius: 0.375rem;
+    padding: 6px;
 }
 </style>

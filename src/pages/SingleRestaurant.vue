@@ -32,6 +32,7 @@ export default {
         }
     },
 
+
     mounted() {
         this.getSingleRestaurant();
         console.log(this.store.apiBaseUrl + '/storage');
@@ -63,10 +64,12 @@ export default {
                 <div class="col">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
-                        <div class="col-3 border rounded h-100 pb-2" v-for=" dish  in  restaurant.dishes ">
+                        <div class="col-3 border rounded h-100 pb-2" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop " data-dish-name="{{dish.name}}" v-for=" dish in restaurant.dishes ">
                             <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
                                 class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
-                            <div class="py-2 text-center fw-bold">{{ dish.name }}</div>
+                            <div class="py-2 px-2 fw-bold">{{ dish.name }}</div>
+                            <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
                             <div class="d-flex justify-content-center align-items-center gap-2 px-2">
                                 <div class="border rounded w-75 text-center ms-primary" role="button">
                                     <i class="fa-solid fa-trash p-1"></i>
@@ -75,10 +78,30 @@ export default {
                                     <i class="fa-solid fa-plus p-1"></i>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <ShoppingCart></ShoppingCart>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +122,7 @@ export default {
     color: $primary-color;
 }
 
-.badge{
+.badge {
     background-color: $primary-color;
 }
 </style>
