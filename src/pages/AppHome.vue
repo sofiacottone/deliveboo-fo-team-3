@@ -16,7 +16,7 @@ export default {
             categoryListIntern: [
                 {
                     name: 'pizza',
-                    flag: '🍝'
+                    flag: '🍕'
                 },
                 {
                     name: 'messicano',
