@@ -71,17 +71,17 @@ export default {
             // }
 
             axios.get(`${this.store.apiBaseUrl}/api/restaurants`)
-            .then((response) => {
-                this.restaurants = response.data.results;
-            });
-            
+                .then((response) => {
+                    this.restaurants = response.data.results;
+                });
+
         },
 
         getCategoryList() {
             axios.get(`${this.store.apiBaseUrl}/api/categories`)
-            .then((response) => {
-                this.categories = response.data.results;
-            });
+                .then((response) => {
+                    this.categories = response.data.results;
+                });
         },
 
         updateCategories(event) {
@@ -101,9 +101,9 @@ export default {
             if (this.selectedCategories.length === 0) {
                 this.filteredRestaurants = []; // Se non ci sono categorie selezionate, mostra un array vuoto
             } else {
-                this.filteredRestaurants = this.restaurants.filter(restaurant => 
-                    this.selectedCategories.every(selectedCategory => 
-                        restaurant.categories.some(restaurantCategory => 
+                this.filteredRestaurants = this.restaurants.filter(restaurant =>
+                    this.selectedCategories.every(selectedCategory =>
+                        restaurant.categories.some(restaurantCategory =>
                             restaurantCategory.name === selectedCategory
                         )
                     )
@@ -114,7 +114,7 @@ export default {
 
     mounted() {
         this.getRestaurantList(),
-        this.getCategoryList()
+            this.getCategoryList()
     }
 }
 
@@ -131,17 +131,14 @@ export default {
             <div class="col-8 d-flex flex-wrap gap-3 justify-content-center">
                 <div v-for="category in categories">
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                        <input 
-                        @change="updateCategories"
-                        :value="category.name"
-                        type="checkbox" class="btn-check" 
-                        :id="category.name"
-                        >
+                        <input @change="updateCategories" :value="category.name" type="checkbox" class="btn-check"
+                            :id="category.name">
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
-                                <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{ categoryIntern.flag }}</span>
+                                <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
+                    categoryIntern.flag }}</span>
                             </span>
-                            {{ category.name }} 
+                            {{ category.name }}
                         </label>
                     </div>
                 </div>
@@ -156,12 +153,14 @@ export default {
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
-                            <div v-for="category in restaurant.categories">
-                                <span class="badge text-bg-primary">{{ category.name }}</span>
+                            <div>
+                                <template v-for="category in restaurant.categories">
+                                    <span class="badge text-bg-primary mx-1">{{ category.name }}</span>
+                                </template>
                             </div>
                         </div>
-                        <router-link :to="{ name: 'single-restaurant', params: {slug: restaurant.slug} }">
-                            <button class="ms-btn-custom">Ordina qui</button> 
+                        <router-link :to="{ name: 'single-restaurant', params: { slug: restaurant.slug } }">
+                            <button class="ms-btn-custom">Ordina qui</button>
                         </router-link>
                     </div>
                 </div>
@@ -171,30 +170,29 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-    @use '../style/generic';
-    @use '../style/partials/variables' as *;
+@use '../style/generic';
+@use '../style/partials/variables' as *;
 
-       .ms-btn-custom {
-        background-color: #fff;
-        font-family: $secondary-font;
-        text-transform: uppercase;
-        color: $primary-color;
-        text-decoration: none;
-        padding: 8px 8px 4px;
-        border-radius: 8px;
-        box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
-        border: 2px solid $primary-color;
-        transition: transform 0.5s ease;
+.ms-btn-custom {
+    background-color: #fff;
+    font-family: $secondary-font;
+    text-transform: uppercase;
+    color: $primary-color;
+    text-decoration: none;
+    padding: 8px 8px 4px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
+    border: 2px solid $primary-color;
+    transition: transform 0.5s ease;
 
-            &:hover {
-                background-color: $primary-color;
-                color: #fff;
-                transform: scale(1.1);
-            }
-        }   
-
-    .ms-icon-category {
-        font-size: 30px;
+    &:hover {
+        background-color: $primary-color;
+        color: #fff;
+        transform: scale(1.1);
     }
+}
 
+.ms-icon-category {
+    font-size: 30px;
+}
 </style>
