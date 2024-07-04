@@ -16,16 +16,6 @@ export default {
         getImageUrl(name) {
             return new URL(`../assets/img/${name}`, import.meta.url).href;
         },
-
-        data() {
-            return {
-                getImageUrl(name) {
-                    return new URL(`../assets/img/${name}`, import.meta.url).href;
-                },
-            }
-
-            return text;
-        }
     }
 }
 

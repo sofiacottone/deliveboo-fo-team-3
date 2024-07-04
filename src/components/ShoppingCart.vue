@@ -23,7 +23,7 @@ export default {
 
 <template>
 
-    <div class="mx-auto my-3 w-25 border rounded-1 p-3">
+    <div class="border rounded-1 p-3">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
