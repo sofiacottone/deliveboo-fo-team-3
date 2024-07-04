@@ -13,6 +13,7 @@ export default {
             filteredRestaurants: [],
             selectedCategories: [],
             categories: [],
+            activeButtons: [],
             categoryListIntern: [
                 {
                     name: 'pizza',
@@ -109,10 +110,21 @@ export default {
                     )
                 );
             }
+        },
+
+        changeButtonColor(categoryName) {
+            if (this.activeButtons.includes(categoryName)) {
+                this.activeButtons = this.activeButtons.filter(name => name !== categoryName);
+            } else {
+                this.activeButtons.push(categoryName);
+            }
         }
+
     },
 
+
     mounted() {
+        
         this.getRestaurantList(),
             this.getCategoryList()
     }
@@ -133,7 +145,7 @@ export default {
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         <input @change="updateCategories" :value="category.name" type="checkbox" class="btn-check"
                             :id="category.name">
-                        <label class="ms-button" :for="category.name">
+                        <label class="ms-button" :for="category.name" @click="changeButtonColor">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
                                     categoryIntern.flag }}</span>
@@ -206,5 +218,11 @@ export default {
     border: 2px solid $primary-color;
     border-radius: 0.375rem;
     padding: 6px;
+
+    .active {
+        background-color: $primary-color;
+        color: #fff;
+        border: 2px solid #fff;
+    }
 }
 </style>
