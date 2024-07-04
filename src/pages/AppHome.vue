@@ -166,6 +166,9 @@ export default {
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center mt-4" v-if="selectedCategories.length > 0 && filteredRestaurants.length == 0">
+                <div>Nessun ristorante trovato con le categorie selezionate.</div>
+        </div>
     </div>
 </template>
 
