@@ -32,13 +32,16 @@ export default {
 </script>
 
 <template>
-    <router-link :to="{ name: 'single-restaurant', params: {slug: restaurantDetail.slug} }"><div class="card" style="width: 18rem;">
-        <img :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')">    
+    <router-link :to="{ name: 'single-restaurant', params: { slug: restaurantDetail.slug } }">
+        <div class="card w-100 h-100">
+            <img class="card-img-top"
+                :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')">
             <div class="card-body">
                 <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
                 <button class="ms-btn-custom">Ordina qui</button>
             </div>
-    </div></router-link>
+        </div>
+    </router-link>
 </template>
 
 <style lang="scss" scoped>
