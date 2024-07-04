@@ -53,13 +53,16 @@ export default {
                 <h2>{{ restaurant.restaurant_name }}</h2>
                 <p>{{ restaurant.description }}</p>
                 <i class="fa-solid fa-location-dot"></i> <span> {{ restaurant.address }}</span>
+                <div v-for="category in restaurant.categories">
+                    <span class="badge mx-1">{{ category.name }}</span>
+                </div>
             </div>
         </div>
         <div class="row p-2 pt-3">
             <div class="d-flex justify-content-between">
                 <div class="col">
                     <h2>Piatti</h2>
-                    <div class="hstack gap-3">
+                    <div class="hstack gap-3 flex-wrap">
                         <div class="col-3 border rounded h-100 pb-2" v-for=" dish  in  restaurant.dishes ">
                             <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
                                 class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
@@ -94,5 +97,9 @@ export default {
 
 .ms-primary {
     color: $primary-color;
+}
+
+.badge{
+    background-color: $primary-color;
 }
 </style>

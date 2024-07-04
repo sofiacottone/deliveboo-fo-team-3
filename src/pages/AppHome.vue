@@ -128,7 +128,7 @@ export default {
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-8 d-flex flex-wrap gap-3 justify-content-center">
+            <div class="col-9 d-flex flex-wrap gap-3 justify-content-center">
                 <div v-for="category in categories">
                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                         <input @change="updateCategories" :value="category.name" type="checkbox" class="btn-check"
