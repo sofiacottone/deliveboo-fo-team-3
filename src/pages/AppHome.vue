@@ -155,7 +155,7 @@ export default {
                             <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
                             <div>
                                 <template v-for="category in restaurant.categories">
-                                    <span class="badge text-bg-primary mx-1">{{ category.name }}</span>
+                                    <span class="badge mx-1">{{ category.name }}</span>
                                 </template>
                             </div>
                         </div>
@@ -194,5 +194,9 @@ export default {
 
 .ms-icon-category {
     font-size: 30px;
+}
+
+.badge{
+    background-color: $primary-color;
 }
 </style>
