@@ -13,7 +13,8 @@ export default {
         return {
             store,
             restaurant: {},
-            cart:[]
+            cart: [],
+            selectedDish: null,
             
         }
     },
@@ -41,7 +42,10 @@ export default {
   };
 
   this.cart.push(cartItem);
-}
+        },
+        selectDish(dish) {
+            this.selectedDish = dish;
+        }
     },
 
     removeDishOnCart(dish) {
