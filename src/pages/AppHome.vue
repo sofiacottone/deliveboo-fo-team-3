@@ -142,9 +142,6 @@ export default {
         <div class="d-flex justify-content-center mt-4" v-if="selectedCategories.length > 0 && restaurants.length == 0">
             <div>Nessun ristorante trovato con le categorie selezionate.</div>
         </div>
-        <div class="d-flex justify-content-center mt-4" v-if="selectedCategories.length > 0 && filteredRestaurants.length == 0">
-                <div>Nessun ristorante trovato con le categorie selezionate.</div>
-        </div>
     </div>
 </template>
 
@@ -178,15 +175,17 @@ export default {
 .badge {
     background-color: $primary-color;
 }
-.btn-check:checked + .btn[data-v-70286e62] {
-     background-color: $primary-color;
-     border-color: #fff;
- }
- .btn-outline-primary[data-v-70286e62] {
+
+.btn-check:checked+.btn[data-v-70286e62] {
+    background-color: $primary-color;
+    border-color: #fff;
+}
+
+.btn-outline-primary[data-v-70286e62] {
     border-color: $primary-color;
     color: $primary-color;
-    
-    
+
+
     &:hover {
         transition: transform 0.7s ease;
         background-color: $primary-color;
@@ -194,5 +193,5 @@ export default {
         transform: scale(1.1);
         border-color: $primary-color;
     }
- }
+}
 </style>
