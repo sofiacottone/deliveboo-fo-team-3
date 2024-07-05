@@ -9,7 +9,7 @@ export default {
             store,
             restaurants: [],
             queryParams: {
-                category: ''
+                categories: []
             },
             selectedCategories: [],
             categories: [],
@@ -64,12 +64,12 @@ export default {
 
     methods: {
         getRestaurantList() {
-            if (this.selectedCategories == []) {
-                this.queryParams.category = undefined;
+            if (this.selectedCategories.length == 0) {
+                this.queryParams.categories = undefined;
             } else {
-                this.queryParams.category = this.selectedCategories;
+                this.queryParams.categories = this.selectedCategories;
             };
-
+            console.log(this.queryParams.categories);
             axios.get(`${this.store.apiBaseUrl}/api/restaurants`, {
                 params: this.queryParams
             })
