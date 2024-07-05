@@ -47,7 +47,7 @@ export default {
                     //totalPrice: store.newPriceArray,
                     quantity: 1
                 };
-                
+
                 this.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
                 console.log(store.newPriceArray);
@@ -58,13 +58,24 @@ export default {
         selectDish(dish) {
             this.selectedDish = dish;
         },
-    },
 
-    removeDishOnCart(dish) {
-        if (dish.quantity == 1) {
-            this.cart.splice(dish)
+        removeDishOnCart(dish) {
+            const existingDish = this.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                if (existingDish.quantity > 1) {
+                    existingDish.quantity--;
+                    store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                } else {
+                    const index = this.cart.findIndex(item => item.id === dish.id);
+                    if (index !== -1) {
+                        this.cart.splice(index, 1);
+                        delete store.newPriceArray[dish.id];
+                    }
+                }
+            }
         }
     },
+
 
     mounted() {
         this.getSingleRestaurant();
@@ -112,7 +123,8 @@ export default {
 
 
                                 <div class="d-flex justify-content-center align-items-center gap-2 px-2">
-                                    <div class="border rounded w-75 text-center ms-primary" role="button">
+                                    <div class="border rounded w-75 text-center ms-primary" role="button"
+                                        @click="removeDishOnCart(dish)">
                                         <i class="fa-solid fa-trash p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"

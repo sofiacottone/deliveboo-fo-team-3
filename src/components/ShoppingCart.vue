@@ -44,7 +44,7 @@ export default {
             </div>
             <div class="d-flex justify-content-between p-2 mt-2">
                 <div>Totale dell'ordine</div>
-                <div class="fw-bold">Prezzo</div>
+                <div class="fw-bold">Prezzo </div>
             </div>
         </div>
         <div class="d-flex justify-content-center p-3 pb-0">
