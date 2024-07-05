@@ -20,7 +20,6 @@ export default {
             axios.get(`${this.store.apiBaseUrl}/api/restaurants/${this.$route.params.slug}`)
                 .then((response) => {
                     this.restaurant = response.data.results;
-                    console.log(this.restaurant);
                 });
         },
         getImageUrl(name) {
@@ -31,12 +30,17 @@ export default {
         },
         selectDish(dish) {
             this.selectedDish = dish;
+
+            localStorage.setItem('Selected Dish', JSON.stringify(this.selectedDish));
+            const newDish = localStorage.getItem('Selected Dish');
+            const newDishParse = JSON.parse(newDish);
+            console.log(newDishParse.name);
+
         }
     },
     mounted() {
         this.getSingleRestaurant();
-        console.log(this.store.apiBaseUrl + '/storage');
-    },
+    }
 }
 </script>
 
@@ -64,12 +68,8 @@ export default {
                 <div class="col">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
-                        <div class="col-3 border rounded h-100 pb-2" 
-                             v-for="dish in restaurant.dishes"
-                             :key="dish.id"
-                             data-bs-toggle="modal"
-                             data-bs-target="#staticBackdrop"
-                             @click="selectDish(dish)">
+                        <div class="col-3 border rounded h-100 pb-2" v-for="dish in restaurant.dishes" :key="dish.id"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="selectDish(dish)">
                             <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
                                 class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
                             <div class="py-2 px-2 fw-bold">{{ dish.name }}</div>
@@ -95,12 +95,14 @@ export default {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ selectedDish ? selectedDish.name : '' }}</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ selectedDish ? selectedDish.name : '' }}
+                    </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="card-img-top rounded-top ">
-                        <img :src="selectedDish && selectedDish.image ? `${store.apiBaseUrl}/storage/${selectedDish.image}` : getImageUrl('fast-food.webp')" :alt="selectedDish ? selectedDish.name : ''" class="ms-img-style ms-dish-img">
+                        <img :src="selectedDish && selectedDish.image ? `${store.apiBaseUrl}/storage/${selectedDish.image}` : getImageUrl('fast-food.webp')"
+                            :alt="selectedDish ? selectedDish.name : ''" class="ms-img-style ms-dish-img">
 
                     </div>
                     <p v-if="selectedDish">{{ selectedDish.description }}</p>
@@ -126,8 +128,9 @@ export default {
     max-width: 100%;
     object-fit: cover;
     object-position: center;
-        .ms-img-style{
-            height: 200px;
+
+    .ms-img-style {
+        height: 200px;
     }
 }
 
@@ -138,6 +141,4 @@ export default {
 .badge {
     background-color: $primary-color;
 }
-
-
 </style>
