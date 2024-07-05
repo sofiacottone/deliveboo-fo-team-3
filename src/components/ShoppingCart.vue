@@ -24,20 +24,21 @@ export default {
 
 <template>
 
-<div class="mx-auto my-3 w-25 border rounded-1 p-3" v-if="cart.length > 0">
+    <div class="mx-auto my-3 w-25 border rounded-1 p-3" v-if="cart.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
         </div>
         <div class="fw-bold pb-2">Carrello</div>
         <div class="border rounded-1 p-2">
-            <div class="d-flex justify-content-between border-bottom px-2 py-4">
+            <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in cart">
                 <div class="d-flex gap-3">
-                    <div>Quantità</div>
-                    <div>Prodotto</div>
+                    <div>Quantità {{ dish.quantity }}</div>
+                    <div>Prodotto {{ dish.name }}</div>
                 </div>
                 <div class="d-flex gap-3">
-                    <div>Prezzo</div>
+                    <div v-if="dish.quantity == 1">Prezzo {{ dish.price }} €</div>
+                    <div v-else>Prezzo {{ store.newPriceArray[dish.id] }} €</div>
                     <i class="fa-solid fa-chevron-right ms-primary" role="button"></i>
                 </div>
             </div>
@@ -49,17 +50,13 @@ export default {
         <div class="d-flex justify-content-center p-3 pb-0">
             <div class="ms-btn-custom" role="button">Vai al pagamento</div>
         </div>
-        <div v-for="(dish, index) in cart" :key="index" class="d-flex justify-content-between p-2">
-        <div class="d-flex gap-3">
-          <div>{{ dish.quantity }}</div>
-          <div>{{ dish.name }}</div>
+    </div>
+    <div v-else>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="fw-bold">Il tuo ordine</div>
+            <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
         </div>
-        <div class="d-flex gap-3">
-          <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
-          <div v-else>{{ store.newPriceArray }} €</div>
-          <i class="fa-solid fa-trash ms-primary" role="button"></i>
-        </div>
-      </div>
+        <p>Oh oh, il carrello è vuoto!</p>
     </div>
 
 

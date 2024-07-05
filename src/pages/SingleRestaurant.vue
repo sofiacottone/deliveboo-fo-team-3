@@ -36,7 +36,7 @@ export default {
             const existingDish = this.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
-                store.newPriceArray= existingDish.price * existingDish.quantity;
+                store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
                 console.log(store.newPriceArray);
             } else {
                 //store.newPrice = dish.price * dish.quantity;
@@ -49,6 +49,9 @@ export default {
                 };
                 
                 this.cart.push(cartItem);
+                store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
+                console.log(store.newPriceArray);
+
                 //console.log(this.cart);
             }
         },
