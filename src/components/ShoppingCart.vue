@@ -55,7 +55,8 @@ export default {
           <div>{{ dish.name }}</div>
         </div>
         <div class="d-flex gap-3">
-          <div>{{ dish.price }} €</div>
+          <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
+          <div v-else>{{ store.newPriceArray }} €</div>
           <i class="fa-solid fa-trash ms-primary" role="button"></i>
         </div>
       </div>

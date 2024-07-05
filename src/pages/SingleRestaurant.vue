@@ -15,7 +15,6 @@ export default {
             restaurant: {},
             cart: [],
             selectedDish: null,
-
         }
     },
     methods: {
@@ -36,24 +35,26 @@ export default {
         addDishOnCart(dish) {
             const existingDish = this.cart.find(item => item.id === dish.id);
             if (existingDish) {
-                
                 existingDish.quantity++;
+                store.newPriceArray= existingDish.price * existingDish.quantity;
+                console.log(store.newPriceArray);
             } else {
+                //store.newPrice = dish.price * dish.quantity;
                 const cartItem = {
                     id: dish.id,
                     name: dish.name,
                     price: dish.price,
+                    //totalPrice: store.newPriceArray,
                     quantity: 1
                 };
+                
                 this.cart.push(cartItem);
+                //console.log(this.cart);
             }
         },
         selectDish(dish) {
             this.selectedDish = dish;
         },
-        getTotalPrice(dish) {
-            return dish.price * dish.quantity;
-        }
     },
 
     removeDishOnCart(dish) {
