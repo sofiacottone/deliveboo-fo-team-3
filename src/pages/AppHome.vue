@@ -202,4 +202,21 @@ export default {
 .badge{
     background-color: $primary-color;
 }
+.btn-check:checked + .btn[data-v-70286e62] {
+     background-color: $primary-color;
+     border-color: #fff;
+ }
+ .btn-outline-primary[data-v-70286e62] {
+    border-color: $primary-color;
+    color: $primary-color;
+    
+    
+    &:hover {
+        transition: transform 0.7s ease;
+        background-color: $primary-color;
+        color: #fff;
+        transform: scale(1.1);
+        border-color: $primary-color;
+    }
+ }
 </style>
