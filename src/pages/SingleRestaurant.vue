@@ -34,17 +34,25 @@ export default {
             return window.history.length > 2
         },
         addDishOnCart(dish) {
-            const cartItem = {
-                id: dish.id,
-                name: dish.name,
-                price: dish.price,
-                quantity: 1
-            };
-
-            this.cart.push(cartItem);
+            const existingDish = this.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                
+                existingDish.quantity++;
+            } else {
+                const cartItem = {
+                    id: dish.id,
+                    name: dish.name,
+                    price: dish.price,
+                    quantity: 1
+                };
+                this.cart.push(cartItem);
+            }
         },
         selectDish(dish) {
             this.selectedDish = dish;
+        },
+        getTotalPrice(dish) {
+            return dish.price * dish.quantity;
         }
     },
 
@@ -138,7 +146,8 @@ export default {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  @click="addDishOnCart(selectedDish)">Aggiungi al carrello</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            @click="addDishOnCart(selectedDish)">Aggiungi al carrello</button>
                         <!-- <div class="border rounded w-75 text-center ms-primary" role="button"
                             @click="addDishOnCart(selectedDish)">
                             <i class="fa-solid fa-plus p-1"></i>
