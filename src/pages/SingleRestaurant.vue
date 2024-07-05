@@ -138,7 +138,11 @@ export default {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Aggiungi al carrello</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  @click="addDishOnCart(selectedDish)">Aggiungi al carrello</button>
+                        <!-- <div class="border rounded w-75 text-center ms-primary" role="button"
+                            @click="addDishOnCart(selectedDish)">
+                            <i class="fa-solid fa-plus p-1"></i>
+                        </div> -->
                     </div>
                 </div>
             </div>
