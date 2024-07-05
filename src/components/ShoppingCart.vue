@@ -4,18 +4,19 @@ import { store } from '../store.js';
 export default {
     name: 'ShoppingCart',
     props: {
-
+        dishes: Object,
+        cart: Object,
     },
 
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
         getImageUrl(name) {
             return new URL(`../assets/img/${name}`, import.meta.url).href;
-        },
+        }
     }
 }
 
@@ -23,7 +24,7 @@ export default {
 
 <template>
 
-    <div class="mx-auto my-3 w-25 border rounded-1 p-3">
+<div class="mx-auto my-3 w-25 border rounded-1 p-3" v-if="cart.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
@@ -44,12 +45,22 @@ export default {
                 <div>Totale dell'ordine</div>
                 <div class="fw-bold">Prezzo</div>
             </div>
-
         </div>
         <div class="d-flex justify-content-center p-3 pb-0">
             <div class="ms-btn-custom" role="button">Vai al pagamento</div>
         </div>
+        <div v-for="(dish, index) in cart" :key="index" class="d-flex justify-content-between p-2">
+        <div class="d-flex gap-3">
+          <div>{{ dish.quantity }}</div>
+          <div>{{ dish.name }}</div>
+        </div>
+        <div class="d-flex gap-3">
+          <div>{{ dish.price }} €</div>
+          <i class="fa-solid fa-trash ms-primary" role="button"></i>
+        </div>
+      </div>
     </div>
+
 
 </template>
 

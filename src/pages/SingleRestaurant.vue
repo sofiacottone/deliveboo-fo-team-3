@@ -13,6 +13,8 @@ export default {
         return {
             store,
             restaurant: {},
+            cart:[]
+            
         }
     },
     methods: {
@@ -29,14 +31,31 @@ export default {
         },
         hasHistory() {
             return window.history.length > 2
-        }
+        },
+        addDishOnCart(dish) {
+  const cartItem = {
+    id: dish.id,
+    name: dish.name,
+    price: dish.price,
+    quantity: 1
+  };
+
+  this.cart.push(cartItem);
+}
     },
 
+    removeDishOnCart(dish) {
+        if (dish.quantity == 1) {
+            this.cart.splice(dish)
+        }
+    },
 
     mounted() {
         this.getSingleRestaurant();
         console.log(this.store.apiBaseUrl + '/storage');
     },
+
+
 }
 
 </script>
@@ -64,17 +83,17 @@ export default {
                 <div class="col">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
-                        <div class="col-3 border rounded h-100 pb-2" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop " data-dish-name="{{dish.name}}" v-for=" dish in restaurant.dishes ">
+                        <div class="col-3 border rounded h-100 pb-2"  v-for=" dish in restaurant.dishes ">
                             <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
                                 class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
-                            <div class="py-2 px-2 fw-bold">{{ dish.name }}</div>
+                            <div class="py-2 px-2 fw-bold" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop " data-dish-name="{{dish.name}}">{{ dish.name }}</div>
                             <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
                             <div class="d-flex justify-content-center align-items-center gap-2 px-2">
                                 <div class="border rounded w-75 text-center ms-primary" role="button">
                                     <i class="fa-solid fa-trash p-1"></i>
                                 </div>
-                                <div class="border rounded w-75 text-center ms-primary" role="button">
+                                <div class="border rounded w-75 text-center ms-primary" role="button" @click="addDishOnCart(dish)">
                                     <i class="fa-solid fa-plus p-1"></i>
                                 </div>
                             </div>
@@ -82,7 +101,7 @@ export default {
                         </div>
                     </div>
                 </div>
-                <ShoppingCart></ShoppingCart>
+                <ShoppingCart :cart="cart" :dishes="restaurant.dishes"></ShoppingCart>
             </div>
         </div>
     </div>
