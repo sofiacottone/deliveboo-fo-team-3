@@ -6,4 +6,5 @@ export const store = reactive({
     selectedCategories: '',
     newPrice: 0,
     newPriceArray: [],
+    totalPrice:[]
 });

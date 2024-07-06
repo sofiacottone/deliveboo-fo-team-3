@@ -33,28 +33,29 @@ export default {
             return window.history.length > 2
         },
         addDishOnCart(dish) {
-            const existingDish = this.cart.find(item => item.id === dish.id);
-            if (existingDish) {
-                existingDish.quantity++;
-                store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
-                console.log(store.newPriceArray);
-            } else {
-                //store.newPrice = dish.price * dish.quantity;
-                const cartItem = {
-                    id: dish.id,
-                    name: dish.name,
-                    price: dish.price,
-                    //totalPrice: store.newPriceArray,
-                    quantity: 1
-                };
+  const existingDish = this.cart.find(item => item.id === dish.id);
+  if (existingDish) {
+    existingDish.quantity++;
+    store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+    store.totalPrice += existingDish.price; 
+  } else {
+    const cartItem = {
+      id: dish.id,
+      name: dish.name,
+      price: dish.price,
+      quantity: 1
+    };
 
-                this.cart.push(cartItem);
-                store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
-                console.log(store.newPriceArray);
+    this.cart.push(cartItem);
+    store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
+      store.totalPrice += cartItem.price; 
+  }
 
-                //console.log(this.cart);
-            }
-        },
+  store.totalPrice = this.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+  console.log(store.newPriceArray);
+  console.log(store.totalPrice); 
+},
         selectDish(dish) {
             this.selectedDish = dish;
         },
@@ -65,11 +66,14 @@ export default {
                 if (existingDish.quantity > 1) {
                     existingDish.quantity--;
                     store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                    store.totalPrice -= existingDish.price;
                 } else {
                     const index = this.cart.findIndex(item => item.id === dish.id);
+                    store.totalPrice -= existingDish.price * existingDish.quantity ;
                     if (index !== -1) {
                         this.cart.splice(index, 1);
                         delete store.newPriceArray[dish.id];
+
                     }
                 }
             }
