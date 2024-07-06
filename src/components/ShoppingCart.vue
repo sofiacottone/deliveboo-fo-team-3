@@ -47,9 +47,12 @@ export default {
                 <div class="fw-bold">Prezzo  {{ store.totalPrice }}</div>
             </div>
         </div>
-        <div class="d-flex justify-content-center p-3 pb-0">
-            <div class="ms-btn-custom" role="button">Vai al pagamento</div>
-        </div>
+        <router-link :to="{ name: 'checkout' }">
+            <div class="d-flex justify-content-center p-3 pb-0">
+                <div class="ms-btn-custom" role="button">Vai al pagamento</div>
+            </div>
+        </router-link>
+        
     </div>
     <div v-else>
         <div class="d-flex justify-content-between mb-3">
