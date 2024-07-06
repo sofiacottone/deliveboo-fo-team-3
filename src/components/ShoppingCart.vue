@@ -32,7 +32,9 @@ export default {
     <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
-            <div class="ms-primary" role="button" @click="clearCart"><i class="fa-solid fa-trash p-1"></i></div>
+            <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
+                <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
+            </div>
         </div>
         <div class="fw-bold pb-2">Carrello</div>
         <div class="border rounded-1 p-2">
@@ -69,7 +71,26 @@ export default {
         </div>
     </div>
 
-
+    <!-- Modal -->
+    <div class="modal fade" id="confirmClearCart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="confirmDeleteModalLabel">Conferma eliminazione</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler annullare il tuo ordine?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="clearCart">Svuota il
+                        carrello</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
