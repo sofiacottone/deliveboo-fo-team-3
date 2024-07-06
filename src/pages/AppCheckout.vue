@@ -9,19 +9,19 @@ export default {
         <div class="container mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <h1>Ciao sono Checkout</h1>
+                    <h1>Inserisci i tuoi dati</h1>
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <form action="">
+                                <form>
                                     <div class="mb-4 row">
                                         <label for="fullname" class="col-md-4 col-form-label text-md-right">Nome e
                                             Cognome<span style="color: red;">*</span>
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="fullname" min="5"
-                                                maxlength="250" required>
+                                            <input type="text" class="form-control" id="fullname" pattern=".{5,250}"
+                                                title="Il nome deve contenere almeno 5 lettere" required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -30,7 +30,7 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="email" class="form-control" id="email">
+                                            <input type="email" class="form-control" id="email" required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -40,7 +40,7 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="address">
+                                            <input type="text" class="form-control" id="address" required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -49,7 +49,9 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="tel" class="form-control" id="phone">
+                                            <input type="tel" class="form-control" id="phone" required
+                                                pattern="[0-9]{10,13}"
+                                                title="Il numero deve contenere 10 o 12 cifre(con prefisso)">
                                         </div>
                                     </div>
                                     <hr class="mb-4">
@@ -58,37 +60,28 @@ export default {
                                     <div class="row">
                                         <div class="col-sm-6 mb-3">
                                             <label for="cc-name">Nome del proprietario della carta</label>
-                                            <input type="text" class="form-control" id="text">
+                                            <input type="text" class="form-control" id="text" required>
 
                                             <small class="text-muted">Devi inserire il nome visualizzato sulla
                                                 carta</small>
-                                            <div class="invalid-feedback">
-                                                Name on card is required
-                                            </div>
+
                                         </div>
                                         <div class="col-sm-6 mb-3">
                                             <label for="cc-number">Numero della carta di credito</label>
-                                            <input type="tel" class="form-control" id="cc-number">
-                                            <div class="invalid-feedback">
-                                                Credit card number is required
-                                            </div>
+                                            <input type="tel" class="form-control" id="cc-number" required
+                                                pattern="[0-9]{16}" title="Il numero inserito deve contenere 16 cifre">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-sm-3 mb-3">
                                             <label for="cc-expiration">Expiration</label>
-                                            <input type="tel" class="form-control" id="cc-number">
-                                            <div class="invalid-feedback">
-                                                Expiration date required
-                                            </div>
+                                            <input type="month" class="form-control" id="cc-number" required>
                                         </div>
                                         <div class="col-sm-3 mb-3">
                                             <label for="cc-expiration">CVV</label>
-                                            <input type="tel" class="form-control" id="cc-expiration">
-                                            <div class="invalid-feedback">
-                                                Security code required
-                                            </div>
+                                            <input type="tel" class="form-control" id="cc-expiration" required
+                                                pattern="[0-9]{3}" title="Il numero inserito deve contenere 3 cifre">
                                         </div>
                                     </div>
                                     <div class="text-center">
