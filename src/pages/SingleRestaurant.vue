@@ -127,9 +127,9 @@ export default {
 
 
                                 <div class="d-flex justify-content-center align-items-center gap-2 px-2">
-                                    <div class="border rounded w-75 text-center ms-primary" role="button"
+                                    <div class="border rounded w-75 text-center ms-primary" role="button" v-if="store.cart.find(item => item.id === dish.id)"
                                         @click="removeDishOnCart(dish)">
-                                        <i class="fa-solid fa-trash p-1"></i>
+                                        <i class="fa-solid fa-minus p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"
                                         @click="addDishOnCart(dish)">
