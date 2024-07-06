@@ -33,7 +33,7 @@ export default {
             return window.history.length > 2
         },
         addDishOnCart(dish) {
-  const existingDish = this.cart.find(item => item.id === dish.id);
+  const existingDish = store.cart.find(item => item.id === dish.id);
   if (existingDish) {
     existingDish.quantity++;
     store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
@@ -46,12 +46,12 @@ export default {
       quantity: 1
     };
 
-    this.cart.push(cartItem);
+    store.cart.push(cartItem);
     store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
       store.totalPrice += cartItem.price; 
   }
 
-  store.totalPrice = this.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   console.log(store.newPriceArray);
   console.log(store.totalPrice); 
@@ -61,17 +61,17 @@ export default {
         },
 
         removeDishOnCart(dish) {
-            const existingDish = this.cart.find(item => item.id === dish.id);
+            const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 if (existingDish.quantity > 1) {
                     existingDish.quantity--;
                     store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
                     store.totalPrice -= existingDish.price;
                 } else {
-                    const index = this.cart.findIndex(item => item.id === dish.id);
+                    const index = store.cart.findIndex(item => item.id === dish.id);
                     store.totalPrice -= existingDish.price * existingDish.quantity ;
                     if (index !== -1) {
-                        this.cart.splice(index, 1);
+                        store.cart.splice(index, 1);
                         delete store.newPriceArray[dish.id];
 
                     }
