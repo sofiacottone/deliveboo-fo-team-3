@@ -44,7 +44,6 @@ export default {
                 <div class="d-flex gap-3">
                     <div v-if="dish.quantity == 1">Prezzo {{ dish.price }} €</div>
                     <div v-else>Prezzo {{ store.newPriceArray[dish.id] }} €</div>
-                    <i class="fa-solid fa-chevron-right ms-primary" role="button"></i>
                 </div>
             </div>
             <div class="d-flex justify-content-between p-2 mt-2">
@@ -64,7 +63,7 @@ export default {
             <div class="fw-bold">Il tuo ordine</div>
             <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
         </div>
-        <p>Oh oh, il carrello è vuoto!</p>
+        <p>Aggiungi un piatto al carrello!</p>
     </div>
 
 
