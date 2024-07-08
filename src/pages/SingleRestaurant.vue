@@ -162,13 +162,13 @@ export default {
                     </div>
                 </div>
                 <div class="ms-shop-cart-small">
-                    <ShoppingCart  :dishes="restaurant.dishes"></ShoppingCart>
+                    <ShoppingCart :dishes="restaurant.dishes"></ShoppingCart>
                 </div>
             </div>
             <div class="ms-shop-cart-big">
-                <ShoppingCart  :dishes="restaurant.dishes"></ShoppingCart>
+                <ShoppingCart :dishes="restaurant.dishes"></ShoppingCart>
             </div>
-            
+
         </div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -230,9 +230,11 @@ export default {
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
     }
+
     .ms-shop-cart-small {
         display: block;
     }
+
     .ms-shop-cart-big {
         display: none;
     }
@@ -243,9 +245,11 @@ export default {
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
     }
+
     .ms-shop-cart-small {
         display: block;
     }
+
     .ms-shop-cart-big {
         display: none;
     }
@@ -256,9 +260,11 @@ export default {
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
     }
+
     .ms-shop-cart-small {
         display: block;
     }
+
     .ms-shop-cart-big {
         display: none;
     }
@@ -289,6 +295,7 @@ export default {
     .ms-shop-cart-small {
         display: none;
     }
+
     .ms-shop-cart-big {
         display: block;
     }

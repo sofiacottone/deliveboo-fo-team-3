@@ -30,21 +30,21 @@ export default {
 
 <template>
 
-    <div class=" border rounded-1 p-3 ms-cart " v-if="store.storedProducts.length > 0">
+    <div class=" border rounded-1 p-3 ms-cart my-3" v-if="store.storedProducts.length > 0">
         <div class="d-flex justify-content-between mb-3">
-            <div class="fw-bold">Il tuo ordine</div>
+            <div class="fw-bold ms-small-d-none">Il tuo ordine</div>
             <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
                 <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
             </div>
         </div>
-        <div class="fw-bold pb-2">Carrello</div>
+        <div class="fw-bold pb-2 ms-small-d-none">Carrello</div>
         <div class="border rounded-1 p-2">
             <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in store.cart">
-                <div class="d-flex gap-3">
+                <div class="d-flex gap-3 ms-small-d-none">
                     <div>{{ dish.quantity }}x</div>
                     <div>{{ dish.name }}</div>
                 </div>
-                <div class="d-flex gap-3">
+                <div class="d-flex gap-3 ms-small-d-none">
                     <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
                     <div v-else>{{ store.newPriceArray[dish.id].toFixed(2) }} €</div>
                 </div>
@@ -75,7 +75,7 @@ export default {
     <!-- Modal -->
     <div class="modal fade" id="confirmClearCart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="confirmDeleteModalLabel">Conferma eliminazione</h1>
@@ -125,6 +125,9 @@ export default {
 
         // min-height: 300px;
         // min-width: 320px;
+    }
+    .ms-small-d-none {
+        display: none;
     }
 }
 </style>
