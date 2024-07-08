@@ -29,7 +29,7 @@ export default {
 
 <template>
 
-    <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
+    <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.storedProducts.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
