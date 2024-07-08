@@ -130,7 +130,7 @@ export default {
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
                         <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
-                        <div class="col-lg-3 col-md-4 col-sm-12 border rounded h-100" v-for="dish in restaurant.dishes"
+                        <div class="col-lg-3 col-md-4 col-sm-12 border rounded h-100 ms-single-dish" v-for="dish in restaurant.dishes"
                             :key="dish.id" @click="selectDish(dish)">
                             <div class="border rounded h-100 ms-dish-card ">
                                 <!-- div bersaglio modale  -->
@@ -276,10 +276,13 @@ export default {
         justify-content: space-between;
         height: 100%;
     }
-
-    .ms-dish-img {
-        // height: 100%;
+    .ms-single-dish {
+        width: 100%;
     }
+
+    // .ms-dish-img {
+    //     // height: 100%;
+    // }
 
     .ms-card-text {
         display: flex;
@@ -300,15 +303,7 @@ export default {
         display: block;
     }
 
-    // .sidebar {
-    //     max-width: 30px;
-    // }
-    // .sidebar .playlist, .header-item p, .user p, .install p, .sidebar hr, #logo {
-    //     display: none;
-    // }
-    // #logo-small {
-    //     display: block;
-    // }
-
 }
+
+
 </style>
