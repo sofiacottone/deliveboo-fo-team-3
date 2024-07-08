@@ -45,7 +45,23 @@ export default {
                     price: dish.price,
                     quantity: 1
                 };
+                const existingDish = store.cart.find(item => item.id === dish.id);
+                if (existingDish) {
+                    existingDish.quantity++;
+                    store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                    store.totalPrice += existingDish.price;
+                } else {
+                    const cartItem = {
+                        id: dish.id,
+                        name: dish.name,
+                        price: dish.price,
+                        quantity: 1
+                    };
 
+                    store.cart.push(cartItem);
+                    store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
+                    store.totalPrice += cartItem.price;
+                }
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
                 store.totalPrice += cartItem.price;
@@ -158,7 +174,7 @@ export default {
                         </div>
                     </div>
                 </div>
-                <ShoppingCart :cart="cart" :dishes="restaurant.dishes"></ShoppingCart>
+                <ShoppingCart :dishes="restaurant.dishes"></ShoppingCart>
             </div>
         </div>
         <!-- Modal -->
