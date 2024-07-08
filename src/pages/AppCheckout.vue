@@ -7,6 +7,25 @@ export default {
         return {
             store
         }
+    },
+    methods: {
+        getValidation() {
+            const button = document.querySelector('#submit-button');
+
+            braintree.dropin.create({
+                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+                selector: '#dropin-container'
+            }, function (err, instance) {
+                button.addEventListener('click', function () {
+                    instance.requestPaymentMethod(function (err, payload) {
+                        // Submit payload.nonce to your server
+                    });
+                })
+            });
+        }
+    },
+    mounted() {
+        this.getValidation()
     }
 }
 </script>
@@ -64,37 +83,9 @@ export default {
                                     <hr class="mb-4">
 
 
-                                    <div class="row">
-                                        <div class="col-sm-6 mb-3">
-                                            <label for="cc-name">Nome del proprietario della carta</label>
-                                            <input type="text" class="form-control" id="cc-name" required>
-
-                                            <small class="text-muted">Devi inserire il nome visualizzato sulla
-                                                carta</small>
-
-                                        </div>
-                                        <div class="col-sm-6 mb-3">
-                                            <label for="cc-number">Numero della carta di credito</label>
-                                            <input type="tel" class="form-control" id="cc-number" required
-                                                pattern="[0-9]{16}" title="Il numero inserito deve contenere 16 cifre">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-3 mb-3">
-                                            <label for="cc-expiration">Expiration</label>
-                                            <input type="month" class="form-control" id="cc-expiration" required>
-                                        </div>
-                                        <div class="col-sm-3 mb-3">
-                                            <label for="ccv">CVV</label>
-                                            <input type="tel" class="form-control" id="ccv" required pattern="[0-9]{3}"
-                                                title="Il numero inserito deve contenere 3 cifre">
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button class="btn btn-primary btn-lg" type="submit"> <span id="card-brand">Paga
-                                                con la tua carta</span></button>
-                                    </div>
+                                    <div id="dropin-container"></div>
+                                    <button id="submit-button"
+                                        class="button button--small button--green">Purchase</button>
                                 </form>
                             </div>
                         </div>
@@ -125,6 +116,42 @@ export default {
             </div>
         </div>
     </div>
+
+
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button {
+    cursor: pointer;
+    font-weight: 500;
+    left: 3px;
+    line-height: inherit;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+}
+
+.button--small {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+}
+
+.button--green {
+    outline: none;
+    background-color: #64d18a;
+    border-color: #64d18a;
+    color: white;
+    transition: all 200ms ease;
+}
+
+.button--green:hover {
+    background-color: #8bdda8;
+    color: white;
+}
+</style>
