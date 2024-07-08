@@ -210,8 +210,6 @@ export default {
 @use '../style/partials/variables' as *;
 
 .ms-dish-img {
-    height: 90px;
-    max-width: 100%;
     object-fit: cover;
     object-position: center;
 }
@@ -244,9 +242,11 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
-    // .ms-dish-card {
-    //     min-height: 240px;
-    // }
+   
+    .ms-dish-img{
+        height: 90px;
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -267,9 +267,11 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
-    // .ms-dish-card {
-    //     min-height: 240px;
-    // }
+    
+    .ms-dish-img{
+        height: 90px;
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -294,9 +296,10 @@ export default {
         justify-content: center;
     }
 
-    // .ms-dish-card {
-    //     min-height: 240px;
-    // }
+    .ms-dish-img{
+        height: 90px;
+        max-width: 100%;
+    }    
 }
 
 @media screen and (max-width: 576px) {
@@ -314,9 +317,7 @@ export default {
         width: 100%;
     }
 
-    // .ms-dish-img {
-    //     // height: 100%;
-    // }
+   
 
     .ms-card-text {
         display: flex;
@@ -337,5 +338,10 @@ export default {
         display: block;
     }
 
+    .ms-dish-img{
+        height: 110px;
+        min-width: 200px;
+        max-width: 200px;
+    }
 }
 </style>
