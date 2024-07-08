@@ -7,5 +7,8 @@ export const store = reactive({
     newPrice: 0,
     newPriceArray: [],
     totalPrice: 0,
-    cart: []
+    cart: [],
+    storedProducts: [],
+    storedPrice: null
+
 });
