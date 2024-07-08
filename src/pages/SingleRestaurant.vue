@@ -140,7 +140,7 @@ export default {
                                     <div class="col-sm-8">
                                         <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
                                         </div>
-                                        <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
+                                        <div class="py-2 px-2 fw-bold">{{ dish.price.replace("." , ',') }} €</div>
                                     </div>
                                 </div>
 
@@ -188,7 +188,7 @@ export default {
 
                         </div>
                         <p v-if="selectedDish">{{ selectedDish.description }}</p>
-                        <h3 v-if="selectedDish">{{ selectedDish.price }} €</h3>
+                        <h3 v-if="selectedDish">{{ selectedDish.price.replace("." , ',') }} €</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
