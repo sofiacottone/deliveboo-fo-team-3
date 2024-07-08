@@ -132,7 +132,7 @@ export default {
                         <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
                         <div class="col-lg-3 col-md-5 col-sm-12 border rounded h-100 ms-single-dish"
                             v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
-                            <div class="border rounded h-100 ms-dish-card ">
+                            <div class="border rounded ms-dish-card ">
                                 <!-- div bersaglio modale  -->
                                 <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ms-card-text">
                                     <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
@@ -246,6 +246,10 @@ export default {
     .ms-dish-img{
         height: 90px;
         max-width: 100%;
+    }
+
+    .ms-dish-card{
+        height: 240px;
     }
 }
 
