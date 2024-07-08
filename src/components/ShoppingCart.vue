@@ -46,12 +46,12 @@ export default {
                 </div>
                 <div class="d-flex gap-3">
                     <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
-                    <div v-else>{{ store.newPriceArray[dish.id].toFixed(2) }} €</div>
+                    <div v-else>{{ store.newPriceArray[dish.id] }} €</div>
                 </div>
             </div>
             <div class="d-flex justify-content-between p-2 mt-2">
                 <div>Totale dell'ordine</div>
-                <div class="fw-bold">{{ store.totalPrice.toFixed(2) }} €</div>
+                <div class="fw-bold">{{ store.totalPrice }} €</div>
             </div>
         </div>
         <router-link :to="{ name: 'checkout' }">

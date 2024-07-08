@@ -20,4 +20,14 @@ products ? store.cart = products : store.cart = [];
 const tot = parseInt(localStorage.getItem('total price'));
 tot ? store.totalPrice = tot : store.totalPrice = 0;
 
+const singlePrice = parseInt(localStorage.getItem('single price'));
+singlePrice ? store.newPriceArray = singlePrice : store.newPriceArray = [];
+
 store.currentRestaurant = JSON.parse(localStorage.getItem('restaurant ID'));
+
+store.cart.forEach(dish => {
+    store.newPriceArray[dish.id] = dish.price * dish.quantity;
+    console.log(store.newPriceArray)
+});
+
+//localStorage.clear()

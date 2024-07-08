@@ -33,10 +33,12 @@ export default {
             return window.history.length > 2
         },
         addDishOnCart(dish, restaurant) {
+
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
                 store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                console.log(store.newPriceArray)
                 store.totalPrice += existingDish.price;
             } else {
                 const cartItem = {
@@ -44,7 +46,7 @@ export default {
                     name: dish.name,
                     price: dish.price,
                     quantity: 1,
-                    restaurant: restaurant.name
+                    restaurant: restaurant.id
                 };
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
@@ -85,6 +87,7 @@ export default {
             localStorage.setItem('products', JSON.stringify(store.cart));
             localStorage.setItem('total price', JSON.stringify(store.totalPrice));
             localStorage.setItem('restaurant ID', JSON.stringify(this.restaurant.id));
+            localStorage.setItem('single price', JSON.stringify(store.newPriceArray));
         },
         // getStoredCart() {
         //     const products = localStorage.getItem('products');
