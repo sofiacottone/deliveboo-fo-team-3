@@ -130,8 +130,8 @@ export default {
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
                         <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
-                        <div class="col-lg-3 col-md-4 col-sm-12 border rounded h-100 ms-single-dish" v-for="dish in restaurant.dishes"
-                            :key="dish.id" @click="selectDish(dish)">
+                        <div class="col-lg-3 col-md-4 col-sm-12 border rounded h-100 ms-single-dish"
+                            v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
                             <div class="border rounded h-100 ms-dish-card ">
                                 <!-- div bersaglio modale  -->
                                 <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ms-card-text">
@@ -145,13 +145,13 @@ export default {
                                 </div>
 
 
-                                <div class="d-flex justify-content-center align-items-center gap-2 ms-card-button">
-                                    <div class="border rounded w-75 text-center ms-primary text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                <div class="d-flex justify-content-center align-items-center gap-2 ms-card-button m-2">
+                                    <div class="ms-button-border w-75 text-center ms-primary text-center ms-primary h-100 d-flex justify-content-center align-items-center"
                                         role="button" v-if="store.cart.find(item => item.id === dish.id)"
                                         @click="removeDishOnCart(dish)">
                                         <i class="fa-solid fa-minus py-1 px-2"></i>
                                     </div>
-                                    <div class="border rounded w-75 text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                    <div class="ms-button-border w-75 text-center ms-primary h-100 d-flex justify-content-center align-items-center"
                                         role="button" @click="addDishOnCart(dish)">
                                         <i class="fa-solid fa-plus py-1 px-2"></i>
                                     </div>
@@ -225,7 +225,7 @@ export default {
 }
 
 // MEDIA QUEARY
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1920px) {
     .ms-rounded {
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
@@ -237,6 +237,11 @@ export default {
 
     .ms-shop-cart-big {
         display: none;
+    }
+
+    .ms-button-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
     }
 }
 
@@ -253,6 +258,11 @@ export default {
     .ms-shop-cart-big {
         display: none;
     }
+
+    .ms-button-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -268,6 +278,11 @@ export default {
     .ms-shop-cart-big {
         display: none;
     }
+
+    .ms-button-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -275,7 +290,12 @@ export default {
         display: flex;
         justify-content: space-between;
         height: 100%;
+
+        .ms-button-border {
+            border: none;
+        }
     }
+
     .ms-single-dish {
         width: 100%;
     }
@@ -304,6 +324,4 @@ export default {
     }
 
 }
-
-
 </style>
