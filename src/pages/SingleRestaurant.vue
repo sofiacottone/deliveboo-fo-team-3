@@ -32,7 +32,7 @@ export default {
         hasHistory() {
             return window.history.length > 2
         },
-        addDishOnCart(dish) {
+        addDishOnCart(dish, restaurant) {
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
@@ -43,7 +43,8 @@ export default {
                     id: dish.id,
                     name: dish.name,
                     price: dish.price,
-                    quantity: 1
+                    quantity: 1,
+                    restaurant: restaurant.name
                 };
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
@@ -83,22 +84,25 @@ export default {
         storeCart() {
             localStorage.setItem('products', JSON.stringify(store.cart));
             localStorage.setItem('total price', JSON.stringify(store.totalPrice));
+            localStorage.setItem('restaurant ID', JSON.stringify(this.restaurant.id));
         },
-        getStoredCart() {
-            const products = localStorage.getItem('products');
-            store.storedProducts = JSON.parse(products);
+        // getStoredCart() {
+        //     const products = localStorage.getItem('products');
+        //     store.storedProducts = JSON.parse(products);
 
-            const tot = localStorage.getItem('total price');
-            store.storedPrice = JSON.parse(tot);
-        }
+        //     const tot = localStorage.getItem('total price');
+        //     store.storedPrice = JSON.parse(tot);
+
+        //     const restaurantID = localStorage.getItem('restaurant ID');
+        //     store.currentRestaurant = JSON.parse(restaurantID);
+        // }
     },
 
 
     mounted() {
         this.getSingleRestaurant();
-        this.getStoredCart();
-        console.log(store.storedProducts);
-        console.log(store.storedPrice);
+        // this.getStoredCart();
+        // console.log(store.storedProducts);
     },
 
 
@@ -148,7 +152,7 @@ export default {
                                         <i class="fa-solid fa-minus p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        @click="addDishOnCart(dish)">
+                                        @click="addDishOnCart(dish, restaurant)">
                                         <i class="fa-solid fa-plus p-1"></i>
                                     </div>
                                 </div>
@@ -157,7 +161,7 @@ export default {
                         </div>
                     </div>
                 </div>
-                <ShoppingCart :dishes="restaurant.dishes"></ShoppingCart>
+                <ShoppingCart :restaurant="restaurant"></ShoppingCart>
             </div>
         </div>
         <!-- Modal -->

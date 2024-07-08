@@ -8,7 +8,16 @@ export const store = reactive({
     newPriceArray: [],
     totalPrice: 0,
     cart: [],
-    storedProducts: [],
-    storedPrice: null
+    currentRestaurant: null
+    // storedProducts: [],
+    // storedPrice: null,
 
 });
+
+const products = JSON.parse(localStorage.getItem('products'));
+products ? store.cart = products : store.cart = [];
+
+const tot = parseInt(localStorage.getItem('total price'));
+tot ? store.totalPrice = tot : store.totalPrice = 0;
+
+store.currentRestaurant = JSON.parse(localStorage.getItem('restaurant ID'));
