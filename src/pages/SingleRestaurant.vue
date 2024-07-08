@@ -128,9 +128,9 @@ export default {
             <div class="d-flex justify-content-between">
                 <div class="col-lg-9 col-md-12 col-sm-12">
                     <h2>Piatti</h2>
-                    <div class="hstack gap-3 flex-wrap">
+                    <div class="hstack gap-3 flex-wrap ms-justify-center">
                         <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
-                        <div class="col-lg-3 col-md-6 col-sm-12 border rounded h-100 ms-single-dish"
+                        <div class="col-lg-3 col-md-5 col-sm-12 border rounded h-100 ms-single-dish"
                             v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
                             <div class="border rounded h-100 ms-dish-card ">
                                 <!-- div bersaglio modale  -->
@@ -289,6 +289,9 @@ export default {
     .ms-button-border {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
+    }
+    .ms-justify-center {
+        justify-content: center;
     }
 
     // .ms-dish-card {
