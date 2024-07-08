@@ -19,9 +19,9 @@ export default {
         clearCart() {
             store.cart = []
             store.totalPrice = 0
-            
+
         }
-        
+
     }
 
 }
@@ -30,7 +30,7 @@ export default {
 
 <template>
 
-    <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.storedProducts.length > 0">
+    <div class=" border rounded-1 p-3 ms-cart " v-if="store.storedProducts.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
@@ -119,8 +119,12 @@ export default {
     }
 }
 
-.ms-cart {
-    min-height: 300px;
-    min-width: 320px;
+@media screen and (max-width: 576px) {
+    .ms-cart {
+        width: 100%;
+
+        // min-height: 300px;
+        // min-width: 320px;
+    }
 }
 </style>
