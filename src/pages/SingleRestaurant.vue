@@ -45,23 +45,6 @@ export default {
                     price: dish.price,
                     quantity: 1
                 };
-                const existingDish = store.cart.find(item => item.id === dish.id);
-                if (existingDish) {
-                    existingDish.quantity++;
-                    store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
-                    store.totalPrice += existingDish.price;
-                } else {
-                    const cartItem = {
-                        id: dish.id,
-                        name: dish.name,
-                        price: dish.price,
-                        quantity: 1
-                    };
-
-                    store.cart.push(cartItem);
-                    store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
-                    store.totalPrice += cartItem.price;
-                }
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
                 store.totalPrice += cartItem.price;
@@ -69,9 +52,9 @@ export default {
 
             store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-            console.log(store.newPriceArray);
-            console.log(store.totalPrice);
             this.storeCart();
+            // console.log(store.newPriceArray);
+            // console.log(store.totalPrice);
 
         },
         selectDish(dish) {
