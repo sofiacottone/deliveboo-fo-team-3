@@ -17,10 +17,6 @@ export default {
                     label: 'Ristoranti',
                     routeName: 'restaurants'
                 },
-                {
-                    label: 'Carrello',
-                    routeName: 'checkout'
-                }
             ]
         };
     }
