@@ -1,15 +1,22 @@
 <script>
+import { store } from '../store.js';
+
 export default {
-    name: 'AppCheckout'
+    name: 'AppCheckout',
+    data() {
+        return {
+            store
+        }
+    }
 }
 </script>
 
 <template>
     <div class="container">
         <div class="container mt-4">
-            <div class="row justify-content-center">
+            <h3>Inserisci i tuoi dati per effettuare il pagamento</h3>
+            <div class="row">
                 <div class="col-md-8">
-                    <h1>Inserisci i tuoi dati</h1>
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
@@ -60,7 +67,7 @@ export default {
                                     <div class="row">
                                         <div class="col-sm-6 mb-3">
                                             <label for="cc-name">Nome del proprietario della carta</label>
-                                            <input type="text" class="form-control" id="text" required>
+                                            <input type="text" class="form-control" id="cc-name" required>
 
                                             <small class="text-muted">Devi inserire il nome visualizzato sulla
                                                 carta</small>
@@ -76,12 +83,12 @@ export default {
                                     <div class="row">
                                         <div class="col-sm-3 mb-3">
                                             <label for="cc-expiration">Expiration</label>
-                                            <input type="month" class="form-control" id="cc-number" required>
+                                            <input type="month" class="form-control" id="cc-expiration" required>
                                         </div>
                                         <div class="col-sm-3 mb-3">
-                                            <label for="cc-expiration">CVV</label>
-                                            <input type="tel" class="form-control" id="cc-expiration" required
-                                                pattern="[0-9]{3}" title="Il numero inserito deve contenere 3 cifre">
+                                            <label for="ccv">CVV</label>
+                                            <input type="tel" class="form-control" id="ccv" required pattern="[0-9]{3}"
+                                                title="Il numero inserito deve contenere 3 cifre">
                                         </div>
                                     </div>
                                     <div class="text-center">
@@ -90,6 +97,39 @@ export default {
                                     </div>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="fw-bold">Il tuo ordine</div>
+                    </div>
+                    <div class="border rounded-1 p-2">
+                        <div class="d-flex justify-content-between border-bottom px-2 py-4"
+                            v-for="(dish, index) in store.cart">
+                            <div class="d-flex gap-3">
+                                <div>{{ dish.quantity }}x</div>
+                                <div>{{ dish.name }}</div>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
+                                <div v-else>{{ store.newPriceArray[dish.id] }} €</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between p-2 mt-2">
+                            <div>Totale dell'ordine</div>
+                            <div class="fw-bold">{{ store.totalPrice }} €</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <div
+                        class="ms-cart border rounded-1 p-3 vstack justify-content-around align-items-center text-secondary">
+                        <div class="h3"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <div>Il carrello è vuoto</div>
+                        <div>Aggiungi un piatto al carrello!</div>
+                        <div class="d-flex justify-content-center p-3 pb-0">
+                            <button class="btn btn-secondary" type="button" disabled>Vai al pagamento</button>
                         </div>
                     </div>
                 </div>
