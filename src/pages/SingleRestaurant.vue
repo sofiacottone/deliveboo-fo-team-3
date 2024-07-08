@@ -53,7 +53,7 @@ export default {
 
   store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-  console.log(store.newPriceArray);
+//   console.log(store.newPriceArray);
   console.log(store.totalPrice); 
 },
         selectDish(dish) {
