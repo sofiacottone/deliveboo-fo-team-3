@@ -122,17 +122,6 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div v-else>
-                    <div
-                        class="ms-cart border rounded-1 p-3 vstack justify-content-around align-items-center text-secondary">
-                        <div class="h3"><i class="fa-solid fa-cart-shopping"></i></div>
-                        <div>Il carrello è vuoto</div>
-                        <div>Aggiungi un piatto al carrello!</div>
-                        <div class="d-flex justify-content-center p-3 pb-0">
-                            <button class="btn btn-secondary" type="button" disabled>Vai al pagamento</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
