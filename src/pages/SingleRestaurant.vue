@@ -126,11 +126,11 @@ export default {
         </div>
         <div class="row p-2 pt-3">
             <div class="d-flex justify-content-between">
-                <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="col-lg-9 col-md-12 col-sm-12">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
                         <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
-                        <div class="col-lg-3 col-md-4 col-sm-12 border rounded h-100 ms-single-dish"
+                        <div class="col-lg-3 col-md-6 col-sm-12 border rounded h-100 ms-single-dish"
                             v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
                             <div class="border rounded h-100 ms-dish-card ">
                                 <!-- div bersaglio modale  -->
@@ -224,6 +224,7 @@ export default {
     background-color: $primary-color;
 }
 
+
 // MEDIA QUEARY
 @media screen and (max-width: 1920px) {
     .ms-rounded {
@@ -243,6 +244,9 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
+    // .ms-dish-card {
+    //     min-height: 240px;
+    // }
 }
 
 @media screen and (max-width: 992px) {
@@ -263,6 +267,9 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
+    // .ms-dish-card {
+    //     min-height: 240px;
+    // }
 }
 
 @media screen and (max-width: 768px) {
@@ -272,17 +279,21 @@ export default {
     }
 
     .ms-shop-cart-small {
-        display: block;
+        display: none;
     }
 
     .ms-shop-cart-big {
-        display: none;
+        display: block;
     }
 
     .ms-button-border {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
+
+    // .ms-dish-card {
+    //     min-height: 240px;
+    // }
 }
 
 @media screen and (max-width: 576px) {
