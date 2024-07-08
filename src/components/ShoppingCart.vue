@@ -71,7 +71,7 @@ export default {
         </div>
     </div>
     <div class="ms-mini-cart border rounded-1 p-2 mt-2" v-if="store.storedProducts.length > 0">
-        <div class="fw-bold">{{ store.totalPrice.toFixed(2).replace("." , ',') }} €</div>
+        <div class="fw-bold m-auto">{{ store.totalPrice.toFixed(2).replace("." , ',') }} €</div>
         <router-link :to="{ name: 'checkout' }">
             <div>
                 <div class="ms-btn-custom" role="button">Vai al pagamento</div>
