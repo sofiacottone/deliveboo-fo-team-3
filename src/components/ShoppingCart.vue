@@ -29,22 +29,21 @@ export default {
 </script>
 
 <template>
-
     <div class=" border rounded-1 p-3 ms-cart my-3" v-if="store.storedProducts.length > 0">
         <div class="d-flex justify-content-between mb-3">
-            <div class="fw-bold ms-small-d-none">Il tuo ordine</div>
+            <div class="fw-bold ">Il tuo ordine</div>
             <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
                 <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
             </div>
         </div>
-        <div class="fw-bold pb-2 ms-small-d-none">Carrello</div>
+        <div class="fw-bold pb-2 ">Carrello</div>
         <div class="border rounded-1 p-2">
             <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in store.cart">
-                <div class="d-flex gap-3 ms-small-d-none">
+                <div class="d-flex gap-3 ">
                     <div>{{ dish.quantity }}x</div>
                     <div>{{ dish.name }}</div>
                 </div>
-                <div class="d-flex gap-3 ms-small-d-none">
+                <div class="d-flex gap-3 ">
                     <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
                     <div v-else>{{ store.newPriceArray[dish.id].toFixed(2) }} €</div>
                 </div>
@@ -71,7 +70,15 @@ export default {
             </div>
         </div>
     </div>
+    <div class="ms-mini-cart border rounded-1 p-2 mt-2" v-if="store.storedProducts.length > 0">
+        <div class="fw-bold">{{ store.totalPrice.toFixed(2) }} €</div>
+        <router-link :to="{ name: 'checkout' }">
+            <div>
+                <div class="ms-btn-custom" role="button">Vai al pagamento</div>
+            </div>
+        </router-link>
 
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="confirmClearCart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -119,15 +126,43 @@ export default {
     }
 }
 
-@media screen and (max-width: 576px) {
-    .ms-cart {
-        width: 100%;
+.ms-cart {
+    min-height: 300px;
+}
 
-        // min-height: 300px;
-        // min-width: 320px;
-    }
-    .ms-small-d-none {
+.ms-mini-cart {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .ms-cart {
         display: none;
     }
+
+    .ms-mini-cart {
+        width: 100%;
+        background-color: $primary-color;
+        display: flex;
+        justify-content: space-around;
+        color: $bg-color-gray;
+
+        .ms-btn-custom {
+            background-color: $bg-color-gray;
+            font-family: $secondary-font;
+            color: $primary-color;
+            text-decoration: none;
+            padding: 8px 8px 4px;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 0 #ffffff26, 0 1px 1px #00000013;
+            transition: transform 0.5s ease;
+
+            &:hover {
+                // background-color: $primary-color;
+                // color: #fff;
+                transform: scale(1.1);
+            }
+        }
+    }
+
 }
 </style>
