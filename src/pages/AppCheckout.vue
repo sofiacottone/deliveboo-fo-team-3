@@ -104,7 +104,7 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
+                <div class="w-25 border rounded-1 p-3 ms-cart col-md-4 col-sm-12" v-if="store.cart.length > 0">
                     <div class="d-flex justify-content-between mb-3">
                         <div class="fw-bold">Il tuo ordine</div>
                     </div>
@@ -133,4 +133,41 @@ export default {
 
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use '../style/generic';
+@use '../style/partials/variables' as *;
+
+.ms-dish-img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.ms-primary {
+    color: $primary-color;
+}
+
+.badge {
+    background-color: $primary-color;
+}
+
+
+// MEDIA QUEARY
+@media screen and (max-width: 1920px) {
+    
+}
+
+@media screen and (max-width: 992px) {
+    
+}
+
+@media screen and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 576px) {
+    .ms-cart{
+        width: 100%;
+    }
+}
+</style>
+
