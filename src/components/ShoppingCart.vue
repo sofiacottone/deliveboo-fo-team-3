@@ -87,7 +87,7 @@ export default {
             </div>
         </div>
         <div class="fw-bold pb-2 ">Carrello</div>
-        <div class="border rounded-1 p-2">
+        <div class="border rounded-1 p-2 ms-inside-cart">
             <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in store.cart">
                 <!-- remove button -->
                 <div>
@@ -188,6 +188,11 @@ export default {
 
 .ms-cart {
     min-height: 300px;
+}
+
+.ms-inside-cart {
+    max-height: 356px;
+    overflow-y: scroll;
 }
 
 .ms-mini-cart {
