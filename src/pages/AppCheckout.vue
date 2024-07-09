@@ -80,12 +80,11 @@ export default {
                                                 title="Il numero deve contenere 10 o 12 cifre(con prefisso)">
                                         </div>
                                     </div>
-                                    <hr class="mb-4">
 
 
                                     <div id="dropin-container"></div>
-                                    <button id="submit-button"
-                                        class="button button--small button--green">Purchase</button>
+                                    <button id="submit-button" class="button button--small button--green">Effettua il
+                                        pagamento</button>
                                 </form>
                             </div>
                         </div>
