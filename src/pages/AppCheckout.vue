@@ -104,7 +104,7 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="w-25 border rounded-1 p-3 ms-cart col-md-4 col-sm-12" v-if="store.cart.length > 0">
+                <div class="border rounded-1 p-3 ms-cart col-md-4 col-sm-12" v-if="store.cart.length > 0">
                     <div class="d-flex justify-content-between mb-3">
                         <div class="fw-bold">Il tuo ordine</div>
                     </div>
@@ -167,6 +167,7 @@ export default {
 @media screen and (max-width: 576px) {
     .ms-cart{
         width: 100%;
+        margin-top: 16px;
     }
 }
 </style>
