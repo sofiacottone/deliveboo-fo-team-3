@@ -107,7 +107,7 @@ export default {
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
-                    categoryIntern.flag }}</span>
+                                    categoryIntern.flag }}</span>
                             </span>
                             {{ category.name }}
                         </label>
@@ -123,7 +123,7 @@ export default {
                     <div class="card w-100 h-100">
                         <!-- <img :src="restaurant.image ? category.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurant.restaurant_name }}"> -->
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="ms-block-element justify-content-between">
                                 <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
                                 <div>
                                     <template v-for="category in restaurant.categories">
@@ -174,5 +174,22 @@ export default {
 
 .badge {
     background-color: $primary-color;
+}
+@media screen and (max-width: 1920px) {
+.ms-block-element {
+    display: flex;
+}
+
+}
+
+@media screen and (max-width: 576px) {
+.ms-block-element {
+    display: block;
+    span {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+}
+
 }
 </style>

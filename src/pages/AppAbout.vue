@@ -7,7 +7,7 @@ export default {
 <template>
     <div class="container">
         <div class="d-flex row">
-            <div class="col-2">
+            <div class="ms-route-list col-lg-2">
                 <ul>
                     <li><a href="#our-story">La Nostra Storia</a></li>
                     <li><a href="#our-mission">La Nostra Missione</a></li>
@@ -16,7 +16,7 @@ export default {
                     <li><a href="#why-us">Perché Sceglierci</a></li>
                 </ul>
             </div>
-            <div class="col-10">
+            <div class="col-lg-10">
                 <h1 class="my-3 ms-color-primary">Chi Siamo</h1>
                 <h3 id="our-story">La Nostra Storia</h3>
                 <p>Benvenuti a <strong>Deliveboo</strong>, il servizio di ordinazione e consegna pasti che sta
@@ -124,5 +124,16 @@ li {
     &.hover {
         color: $primary-color;
     }
+}
+@media screen and (max-width: 1920px) {
+      .ms-route-list{
+        display: flex;
+      }
+}
+
+@media screen and (max-width: 768px) {
+      .ms-route-list{
+        display: none;
+      }
 }
 </style>
