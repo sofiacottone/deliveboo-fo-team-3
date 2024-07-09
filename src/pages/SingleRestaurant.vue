@@ -15,6 +15,7 @@ export default {
             restaurant: {},
             cart: [],
             selectedDish: null,
+            showNewCartModal: false
         }
     },
     methods: {
@@ -34,19 +35,22 @@ export default {
         },
         addDishOnCart(dish, restaurant) {
 
+            // this.changeRestaurantModal();
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
                 store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
-                console.log(store.newPriceArray)
+                // console.log(store.newPriceArray)
                 store.totalPrice += existingDish.price;
+            } else if (store.cart.length > 0 && store.cart[0].restaurant.id !== store.currentRestaurant) {
+                this.showNewCartModal = true;
             } else {
                 const cartItem = {
                     id: dish.id,
                     name: dish.name,
                     price: dish.price,
                     quantity: 1,
-                    restaurant: restaurant.id
+                    restaurant: restaurant
                 };
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
@@ -89,16 +93,19 @@ export default {
             localStorage.setItem('restaurant ID', JSON.stringify(this.restaurant.id));
             localStorage.setItem('single price', JSON.stringify(store.newPriceArray));
         },
-        // getStoredCart() {
-        //     const products = localStorage.getItem('products');
-        //     store.storedProducts = JSON.parse(products);
-
-        //     const tot = localStorage.getItem('total price');
-        //     store.storedPrice = JSON.parse(tot);
-
-        //     const restaurantID = localStorage.getItem('restaurant ID');
-        //     store.currentRestaurant = JSON.parse(restaurantID);
-        // }
+        clearCart() {
+            store.cart = [];
+            store.totalPrice = 0;
+            this.storeCart();
+        },
+        changeRestaurantModal() {
+            if (store.cart.length > 0 && store.cart[0].restaurant.id !== store.currentRestaurant) {
+                this.showNewCartModal = true;
+                console.log(this.showNewCartModal);
+                console.log('new rest', store.cart[0].restaurant.id);
+                console.log('curr rest', store.currentRestaurant);
+            }
+        }
     },
 
 
@@ -155,6 +162,7 @@ export default {
                                         <i class="fa-solid fa-minus p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"
+                                        data-bs-toggle="modal" data-bs-target="#changeCart"
                                         @click="addDishOnCart(dish, restaurant)">
                                         <i class="fa-solid fa-plus p-1"></i>
                                     </div>
@@ -167,7 +175,7 @@ export default {
                 <ShoppingCart :restaurant="restaurant"></ShoppingCart>
             </div>
         </div>
-        <!-- Modal -->
+        <!-- Modal to add dish to cart -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -190,11 +198,40 @@ export default {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="addDishOnCart(selectedDish)">Aggiungi al carrello</button>
+                            @click="addDishOnCart(selectedDish)">Aggiungi al
+                            carrello</button>
                         <!-- <div class="border rounded w-75 text-center ms-primary" role="button"
                             @click="addDishOnCart(selectedDish)">
                             <i class="fa-solid fa-plus p-1"></i>
                         </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal to change restaurant cart -->
+        <div v-if="store.cart.length > 0 && showNewCartModal" @close="showNewCartModal = false">
+            <div class="modal fade" id="changeCart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="changeCart" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="confirmchangeCart">Vuoi creare un nuovo carrello?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                In questo modo cancelli il carrello esistente da
+                                {{ store.cart[0].restaurant.restaurant_name }} e crei un nuovo carrello da
+                                {{ restaurant.restaurant_name }}.
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                @click="clearCart">Nuovo
+                                carrello</button>
+                        </div>
                     </div>
                 </div>
             </div>
