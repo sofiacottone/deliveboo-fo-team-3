@@ -36,8 +36,8 @@ export default {
 <template>
     <div class="container py-3">
         <h3>I nostri ristoranti in tutta Roma</h3>
-        <div class="row row-cols-4">
-            <div class="col my-3" v-for="restaurant in restaurants" :key="restaurant.id">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 my-3" v-for="restaurant in restaurants" :key="restaurant.id">
                 <RestaurantCard :restaurantDetail="restaurant"></RestaurantCard>
             </div>
         </div>
