@@ -20,7 +20,57 @@ export default {
             store.cart = []
             store.totalPrice = 0
 
-        }
+        },
+        addDishOnCart(dish) {
+            const existingDish = store.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                existingDish.quantity++;
+                store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                store.totalPrice += existingDish.price;
+            } else {
+                const cartItem = {
+                    id: dish.id,
+                    name: dish.name,
+                    price: dish.price,
+                    quantity: 1
+                };
+                store.cart.push(cartItem);
+                store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
+                store.totalPrice += cartItem.price;
+            }
+
+            store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+            this.storeCart();
+            // console.log(store.newPriceArray);
+            // console.log(store.totalPrice);
+
+        },
+        storeCart() {
+            localStorage.setItem('products', JSON.stringify(store.cart));
+            localStorage.setItem('total price', JSON.stringify(store.totalPrice));
+        },
+
+
+        removeDishOnCart(dish) {
+            const existingDish = store.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                if (existingDish.quantity > 1) {
+                    existingDish.quantity--;
+                    store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                    store.totalPrice -= existingDish.price;
+                } else {
+                    const index = store.cart.findIndex(item => item.id === dish.id);
+                    store.totalPrice -= existingDish.price * existingDish.quantity;
+                    if (index !== -1) {
+                        store.cart.splice(index, 1);
+                        delete store.newPriceArray[dish.id];
+
+                    }
+                }
+            }
+            this.storeCart();
+        },
 
     }
 
@@ -39,6 +89,11 @@ export default {
         <div class="fw-bold pb-2 ">Carrello</div>
         <div class="border rounded-1 p-2">
             <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in store.cart">
+                <!-- remove button -->
+                <div>
+                    <button type="button" @click="removeDishOnCart(dish)"
+                        class="ms-button-border text-center px-2 text-center ms-primary h-100 d-flex justify-content-center align-items-center">-</button>
+                </div>
                 <div class="d-flex gap-3 ">
                     <div>{{ dish.quantity }}x</div>
                     <div>{{ dish.name }}</div>
@@ -46,6 +101,11 @@ export default {
                 <div class="d-flex gap-3 ">
                     <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
                     <div v-else>{{ store.newPriceArray[dish.id].toFixed(2) }} €</div>
+                </div>
+                <!-- add button -->
+                <div>
+                    <button type="button" @click="addDishOnCart(dish)"
+                        class="ms-button-border text-center px-2 text-center ms-primary h-100 d-flex justify-content-center align-items-center">+</button>
                 </div>
             </div>
             <div class="d-flex justify-content-between p-2 mt-2">
@@ -71,7 +131,7 @@ export default {
         </div>
     </div>
     <div class="ms-mini-cart border rounded-1 p-2 mt-2" v-if="store.storedProducts.length > 0">
-        <div class="fw-bold my-auto">{{ store.totalPrice.toFixed(2).replace("." , ',') }} €</div>
+        <div class="fw-bold my-auto">{{ store.totalPrice.toFixed(2).replace(".", ',') }} €</div>
         <router-link :to="{ name: 'checkout' }">
             <div>
                 <div class="ms-btn-custom" role="button">Vai al pagamento</div>
@@ -132,6 +192,11 @@ export default {
 
 .ms-mini-cart {
     display: none;
+}
+
+.ms-button-border {
+    border: none;
+    background-color: #fff;
 }
 
 @media screen and (max-width: 768px) {

@@ -140,7 +140,7 @@ export default {
                                     <div class="col-sm-8">
                                         <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
                                         </div>
-                                        <div class="py-2 px-2 fw-bold">{{ dish.price.replace("." , ',') }} €</div>
+                                        <div class="py-1 px-1 fw-bold">{{ dish.price.replace("." , ',') }} €</div>
                                     </div>
                                 </div>
 
