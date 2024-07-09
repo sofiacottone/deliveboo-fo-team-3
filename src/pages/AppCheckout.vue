@@ -5,27 +5,39 @@ export default {
     name: 'AppCheckout',
     data() {
         return {
-            store
+            store,
+            isValid: false
         }
     },
     methods: {
-        getValidation() {
-            const button = document.querySelector('#submit-button');
+        handleSubmit(event) {
+            // Perform form validation here
+            if (this.validateForm()) {
+                this.isValid = true;
+                this.goToPayments();
+            } else {
+                this.isValid = false;
+                // Show error messages
+            }
+        },
+        validateForm() {
+            // Validate form fields here
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
 
-            braintree.dropin.create({
-                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
-                selector: '#dropin-container'
-            }, function (err, instance) {
-                button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (err, payload) {
-                        // Submit payload.nonce to your server
-                    });
-                })
-            });
+            if (fullname && email && address && phone) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        goToPayments() {
+            if (this.isValid) {
+                this.$router.push({ name: 'payments' });
+            }
         }
-    },
-    mounted() {
-        this.getValidation()
     }
 }
 </script>
@@ -33,13 +45,13 @@ export default {
 <template>
     <div class="container">
         <div class="container mt-4">
-            <h3>Inserisci i tuoi dati per effettuare il pagamento</h3>
+            <h3>Inserisci i tuoi dati per procedere con il pagamento</h3>
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <form>
+                                <form @submit.prevent="handleSubmit">
                                     <div class="mb-4 row">
                                         <label for="fullname" class="col-md-4 col-form-label text-md-right">Nome e
                                             Cognome<span style="color: red;">*</span>
@@ -81,10 +93,12 @@ export default {
                                         </div>
                                     </div>
 
+                                    <div class="d-flex justify-content-center p-3 pb-0">
+                                        <button type="submit" class="btn btn-primary">Vai al pagamento</button>
+                                    </div>
 
-                                    <div id="dropin-container"></div>
-                                    <button id="submit-button" class="button button--small button--green">Effettua il
-                                        pagamento</button>
+
+
                                 </form>
                             </div>
                         </div>
@@ -119,38 +133,4 @@ export default {
 
 </template>
 
-<style lang="scss" scoped>
-.button {
-    cursor: pointer;
-    font-weight: 500;
-    left: 3px;
-    line-height: inherit;
-    position: relative;
-    text-decoration: none;
-    text-align: center;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 3px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    display: inline-block;
-}
-
-.button--small {
-    padding: 10px 20px;
-    font-size: 0.875rem;
-}
-
-.button--green {
-    outline: none;
-    background-color: #64d18a;
-    border-color: #64d18a;
-    color: white;
-    transition: all 200ms ease;
-}
-
-.button--green:hover {
-    background-color: #8bdda8;
-    color: white;
-}
-</style>
+<style lang="scss" scoped></style>
