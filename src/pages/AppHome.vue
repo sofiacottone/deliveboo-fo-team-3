@@ -136,7 +136,7 @@ export default {
         </div>
     </div>
     <div class="container py-3">
-        <div class="row row-cols-3 flex-row">
+        <div class="row row-cols-md-3 flex-row">
             <template v-if="selectedCategories.length > 0">
                 <div v-if="loading">
                     <div class="card" aria-hidden="true">
