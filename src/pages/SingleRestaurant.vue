@@ -221,11 +221,7 @@ export default {
 }
 
 .ms-card-button {
-    bottom: 10px;
     position: absolute;
-    left: 50%;
-    width: 80%;
-    transform: translate(-50%);
 }
 
 .ms-dish-card {
@@ -260,6 +256,13 @@ export default {
     .ms-dish-card {
         height: 240px;
     }
+
+    .ms-card-button {
+        width: 80%;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%)
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -287,41 +290,49 @@ export default {
     }
 }
 
+// @media screen and (max-width: 768px) and (min-width: 577px) {
+//     .ms-rounded {
+//         border-top-left-radius: 0.375rem;
+//         border-top-right-radius: 0.375rem;
+//     }
+
+//     .ms-shop-cart-small {
+//         display: none;
+//     }
+
+//     .ms-shop-cart-big {
+//         display: block;
+//     }
+
+//     .ms-button-border {
+//         border: 1px solid #dee2e6;
+//         border-radius: 0.375rem;
+//     }
+
+//     .ms-justify-center {
+//         justify-content: center;
+//     }
+
+//     .ms-dish-img {
+//         height: 90px;
+//         max-width: 100%;
+//     }
+
+//     .ms-card-button {
+//         left: 50%;
+//         bottom: 10px;
+//         width: 80%;
+//         transform: translate(-50%);
+//     }
+
+// }
+
 @media screen and (max-width: 768px) {
-    .ms-rounded {
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-    }
-
-    .ms-shop-cart-small {
-        display: none;
-    }
-
-    .ms-shop-cart-big {
-        display: block;
-    }
-
-    .ms-button-border {
-        border: 1px solid #dee2e6;
-        border-radius: 0.375rem;
-    }
-
-    .ms-justify-center {
-        justify-content: center;
-    }
-
-    .ms-dish-img {
-        height: 90px;
-        max-width: 100%;
-    }
-
-}
-
-@media screen and (max-width: 576px) {
     .ms-dish-card {
         display: flex;
         justify-content: space-between;
         height: 100%;
+        position: relative;
 
         .ms-button-border {
             border: none;
@@ -360,13 +371,11 @@ export default {
     }
 
     .ms-card-button {
-        right: 0px;
+        flex-direction: column-reverse;
+        width: fit-content;
         position: absolute;
-
-    }
-
-    .ms-dish-card {
-        position: relative;
+        bottom: 14px;
+        right: 10px;
     }
 }
 </style>

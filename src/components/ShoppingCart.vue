@@ -91,24 +91,27 @@ export default {
         </div>
         <div class="fw-bold pb-2 ">Carrello</div>
         <div class="border rounded-1 p-2 ms-inside-cart">
-            <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="(dish, index) in store.cart">
-                <!-- remove button -->
-                <div>
-                    <button type="button" @click="removeDishOnCart(dish)"
-                        class="ms-button-border text-center px-2 text-center ms-primary h-100 d-flex justify-content-center align-items-center">-</button>
+            <div class="d-flex justify-content-between align-items-center gap-1 border-bottom px-2 py-4"
+                v-for="(dish, index) in store.cart">
+                <div class="vstack gap-1">
+                    <!-- remove button -->
+                    <div>
+                        <button type="button" @click="removeDishOnCart(dish)"
+                            class="ms-button-border ms-remove border rounded m-auto text-center text-center ms-primary h-100 d-flex justify-content-center align-items-center">-</button>
+                    </div>
+                    <!-- add button -->
+                    <div>
+                        <button type="button" @click="addDishOnCart(dish)"
+                            class="ms-button-border px-1 border rounded m-auto text-center text-center ms-primary h-100 d-flex justify-content-center align-items-center">+</button>
+                    </div>
                 </div>
-                <div class="d-flex gap-3 ">
+                <div class="d-flex gap-3 align-items-center">
                     <div>{{ dish.quantity }}x</div>
                     <div>{{ dish.name }}</div>
                 </div>
-                <div class="d-flex gap-3 ">
-                    <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
-                    <div v-else>{{ store.newPriceArray[dish.id].toFixed(2).replace(".", ',') }} €</div>
-                </div>
-                <!-- add button -->
-                <div>
-                    <button type="button" @click="addDishOnCart(dish)"
-                        class="ms-button-border text-center px-2 text-center ms-primary h-100 d-flex justify-content-center align-items-center">+</button>
+                <div class="d-flex gap-3 align-items-center">
+                    <div v-if="dish.quantity == 1">{{ dish.price.replace(".", ',') }}€</div>
+                    <div v-else>{{ store.newPriceArray[dish.id].toFixed(2).replace(".", ',') }}€</div>
                 </div>
             </div>
         </div>
@@ -203,8 +206,12 @@ export default {
 }
 
 .ms-button-border {
-    border: none;
-    background-color: #fff;
+    background-color: inherit;
+    cursor: pointer;
+
+    &.ms-remove {
+        padding-inline: 0.41rem;
+    }
 }
 
 @media screen and (max-width: 768px) {
