@@ -10,18 +10,35 @@ export default {
     data() {
         return {
             store,
+            selectedDish: null,
+            currentDish: null
         }
     },
     methods: {
         getImageUrl(name) {
             return new URL(`../assets/img/${name}`, import.meta.url).href;
         },
-        clearCart() {
-            store.cart = []
-            store.totalPrice = 0
-
+        handleAddDishOnCart(dish, restaurant) {
+            console.log('Attempting to add dish:', dish);
+            console.log('Current cart:', store.cart);
+            console.log('Current restaurant:', store.currentRestaurant);
+            const existingDish = store.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                this.addDishOnCart(dish, restaurant);
+            } else if (store.cart.length > 0 && store.cart[0].restaurant.id !== store.currentRestaurant) {
+                this.currentDish = dish;
+                console.log('current dish:', this.currentDish);
+                this.showNewCartModal = true;
+                console.log(this.showNewCartModal);
+                console.log('cart rest', store.cart[0].restaurant.id);
+                console.log('curr rest', store.currentRestaurant);
+                const modal = new Modal(document.getElementById('changeCartModal'));
+                modal.show();
+            } else {
+                this.addDishOnCart(dish, restaurant);
+            }
         },
-        addDishOnCart(dish) {
+        addDishOnCart(dish, restaurant) {
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
@@ -32,7 +49,8 @@ export default {
                     id: dish.id,
                     name: dish.name,
                     price: dish.price,
-                    quantity: 1
+                    quantity: 1,
+                    restaurant: restaurant
                 };
                 store.cart.push(cartItem);
                 store.newPriceArray[dish.id] = cartItem.price * cartItem.quantity;
@@ -42,15 +60,10 @@ export default {
             store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
             this.storeCart();
-            // console.log(store.newPriceArray);
-            // console.log(store.totalPrice);
-
         },
-        storeCart() {
-            localStorage.setItem('products', JSON.stringify(store.cart));
-            localStorage.setItem('total price', JSON.stringify(store.totalPrice));
+        selectDish(dish) {
+            this.selectedDish = dish;
         },
-
 
         removeDishOnCart(dish) {
             const existingDish = store.cart.find(item => item.id === dish.id);
@@ -71,11 +84,18 @@ export default {
             }
             this.storeCart();
         },
+        storeCart() {
+            localStorage.setItem('products', JSON.stringify(store.cart));
+            localStorage.setItem('total price', JSON.stringify(store.totalPrice));
+            localStorage.setItem('restaurant ID', JSON.stringify(this.restaurant.id));
+            localStorage.setItem('single price', JSON.stringify(store.newPriceArray));
+        },
+        clearCart() {
+            store.cart = []
+            store.totalPrice = 0
+            this.storeCart();
+        },
 
-    },
-    mounted() {
-        console.log(store.storedProducts);
-        console.log(this.$router.currentRoute.value.name);
     }
 
 }
@@ -83,9 +103,10 @@ export default {
 </script>
 
 <template>
-    <div class="border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0 && store.currentRestaurant == restaurant.id">
+    <div class="border rounded-1 p-3 ms-cart"
+        v-if="store.cart.length > 0 && store.currentRestaurant == store.cart[0].restaurant.id">
         <div class="d-flex justify-content-between mb-3">
-            <div class="fw-bold ">Il tuo ordine</div>
+            <div class="fw-bold ">Il tuo ordine da {{ store.cart[0].restaurant.restaurant_name }}</div>
             <div v-if="$router.currentRoute.value.name == 'single-restaurant'" data-bs-toggle="modal"
                 data-bs-target="#confirmClearCart">
                 <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
