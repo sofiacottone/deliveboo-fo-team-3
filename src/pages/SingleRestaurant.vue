@@ -155,32 +155,35 @@ export default {
                 <div class="col">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap">
-                        <div class="col-3 border rounded h-100" v-for="dish in restaurant.dishes" :key="dish.id"
-                            @click="selectDish(dish)">
-                            <div class="border rounded h-100 pb-2">
-                                <!-- div bersaglio modale  -->
-                                <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
-                                        class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
-                                    <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}</div>
-                                    <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
-                                </div>
-
-
-                                <div class="d-flex justify-content-center align-items-center gap-2 px-2">
-                                    <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        v-if="store.cart.find(item => item.id === dish.id)"
-                                        @click="removeDishOnCart(dish)">
-                                        <i class="fa-solid fa-minus p-1"></i>
+                        <template v-for="dish in restaurant.dishes">
+                            <div class="col-3 border rounded h-100" v-if="dish.visibility == 1" :key="dish.id"
+                                @click="selectDish(dish)">
+                                <div class="border rounded h-100 pb-2">
+                                    <!-- div bersaglio modale  -->
+                                    <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
+                                            class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
+                                        <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
+                                        </div>
+                                        <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
                                     </div>
-                                    <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        @click="handleAddDishOnCart(dish, restaurant)">
-                                        <i class="fa-solid fa-plus p-1"></i>
-                                    </div>
-                                </div>
 
+
+                                    <div class="d-flex justify-content-center align-items-center gap-2 px-2">
+                                        <div class="border rounded w-75 text-center ms-primary" role="button"
+                                            v-if="store.cart.find(item => item.id === dish.id)"
+                                            @click="removeDishOnCart(dish)">
+                                            <i class="fa-solid fa-minus p-1"></i>
+                                        </div>
+                                        <div class="border rounded w-75 text-center ms-primary" role="button"
+                                            @click="handleAddDishOnCart(dish, restaurant)">
+                                            <i class="fa-solid fa-plus p-1"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
                 <ShoppingCart :restaurant="restaurant"></ShoppingCart>
