@@ -155,34 +155,38 @@ export default {
                 <div class="col-lg-9 col-md-12 col-sm-12">
                     <h2>Piatti</h2>
                     <div class="hstack gap-3 flex-wrap ms-justify-center">
-                        <div class="col-lg-3 col-md-5 col-sm-12 border rounded h-100 ms-single-dish"
-                            v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
-                            <div v-if="dish.visibility == 1" class="border rounded ms-dish-card ">
-                                <!-- div bersaglio modale  -->
-                                <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ms-card-text">
-                                    <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
-                                        class="card-img-top ms-rounded ms-dish-img" :alt="dish.name">
-                                    <div class="col-sm-8">
-                                        <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
+                        <template v-for="dish in restaurant.dishes">
+                            <div class="col-lg-3 col-md-5 col-sm-12 border rounded h-100 ms-single-dish"
+                                v-if="dish.visibility == 1" :key="dish.id" @click="selectDish(dish)">
+                                <div class="border rounded ms-dish-card ">
+                                    <!-- div bersaglio modale  -->
+                                    <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ms-card-text">
+                                        <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
+                                            class="card-img-top ms-rounded ms-dish-img" :alt="dish.name">
+                                        <div class="col-sm-8">
+                                            <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name
+                                                }}
+                                            </div>
+                                            <div class="py-1 px-2 fw-bold">{{ dish.price.replace(".", ',') }} €</div>
                                         </div>
-                                        <div class="py-1 px-2 fw-bold">{{ dish.price.replace(".", ',') }} €</div>
                                     </div>
-                                </div>
 
 
-                                <div class="d-flex justify-content-center align-items-center gap-2 ms-card-button m-2">
-                                    <div class="ms-button-border w-75 text-center ms-primary text-center ms-primary h-100 d-flex justify-content-center align-items-center"
-                                        role="button" v-if="store.cart.find(item => item.id === dish.id)"
-                                        @click="removeDishOnCart(dish)">
-                                        <i class="fa-solid fa-minus py-1 px-2"></i>
-                                    </div>
-                                    <div class="ms-button-border w-75 text-center ms-primary h-100 d-flex justify-content-center align-items-center"
-                                        role="button" @click="handleAddDishOnCart(dish, restaurant)">
-                                        <i class="fa-solid fa-plus py-1 px-2"></i>
+                                    <div
+                                        class="d-flex justify-content-center align-items-center gap-2 ms-card-button m-2">
+                                        <div class="ms-button-border w-75 text-center ms-primary text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                            role="button" v-if="store.cart.find(item => item.id === dish.id)"
+                                            @click="removeDishOnCart(dish)">
+                                            <i class="fa-solid fa-minus py-1 px-2"></i>
+                                        </div>
+                                        <div class="ms-button-border w-75 text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                            role="button" @click="handleAddDishOnCart(dish, restaurant)">
+                                            <i class="fa-solid fa-plus py-1 px-2"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
                 <div class="ms-shop-cart-small">
