@@ -6,6 +6,7 @@ import RestaurantList from './pages/RestaurantList.vue';
 import SingleRestaurant from './pages/SingleRestaurant.vue';
 import AppCheckout from './pages/AppCheckout.vue';
 import AppPayments from './pages/AppPayments.vue';
+import OrderConfirm from './pages/OrderConfirm.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -39,6 +40,11 @@ const router = createRouter({
             path: '/checkout/payments',
             name: 'payments',
             component: AppPayments
+        },
+        {
+            path: '/checkout/payments/confirm',
+            name: 'order-confirm',
+            component: OrderConfirm
         },
     ]
 });
