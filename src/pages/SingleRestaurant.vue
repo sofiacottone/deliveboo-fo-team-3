@@ -133,30 +133,34 @@ export default {
         </div>
         <div class="row p-2 pt-3">
             <div class="d-flex justify-content-between">
-                <div class="col">
+                <div class="col-lg-9 col-md-12 col-sm-12">
                     <h2>Piatti</h2>
-                    <div class="hstack gap-3 flex-wrap">
-                        <div class="col-3 border rounded h-100" v-for="dish in restaurant.dishes" :key="dish.id"
-                            @click="selectDish(dish)">
-                            <div class="border rounded h-100 pb-2">
+                    <div class="hstack gap-3 flex-wrap ms-justify-center">
+                        <!-- TODO AGGIUNGERE H FISSA PER TESTO TROPPO LUNGO -->
+                        <div class="col-lg-3 col-md-5 col-sm-12 border rounded h-100 ms-single-dish"
+                            v-for="dish in restaurant.dishes" :key="dish.id" @click="selectDish(dish)">
+                            <div class="border rounded ms-dish-card ">
                                 <!-- div bersaglio modale  -->
-                                <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ms-card-text">
                                     <img :src="dish.image ? `${this.store.apiBaseUrl}/storage/${dish.image}` : getImageUrl('fast-food.webp')"
-                                        class="card-img-top rounded-top ms-dish-img" :alt="dish.name">
-                                    <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}</div>
-                                    <div class="py-2 px-2 fw-bold">{{ dish.price }} €</div>
+                                        class="card-img-top ms-rounded ms-dish-img" :alt="dish.name">
+                                    <div class="col-sm-8">
+                                        <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
+                                        </div>
+                                        <div class="py-1 px-2 fw-bold">{{ dish.price.replace(".", ',') }} €</div>
+                                    </div>
                                 </div>
 
 
-                                <div class="d-flex justify-content-center align-items-center gap-2 px-2">
-                                    <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        v-if="store.cart.find(item => item.id === dish.id)"
+                                <div class="d-flex justify-content-center align-items-center gap-2 ms-card-button m-2">
+                                    <div class="ms-button-border w-75 text-center ms-primary text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                        role="button" v-if="store.cart.find(item => item.id === dish.id)"
                                         @click="removeDishOnCart(dish)">
-                                        <i class="fa-solid fa-minus p-1"></i>
+                                        <i class="fa-solid fa-minus py-1 px-2"></i>
                                     </div>
-                                    <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        @click="addDishOnCart(dish, restaurant)">
-                                        <i class="fa-solid fa-plus p-1"></i>
+                                    <div class="ms-button-border w-75 text-center ms-primary h-100 d-flex justify-content-center align-items-center"
+                                        role="button" @click="addDishOnCart(dish, restaurant)">
+                                        <i class="fa-solid fa-plus py-1 px-2"></i>
                                     </div>
                                 </div>
 
@@ -164,8 +168,14 @@ export default {
                         </div>
                     </div>
                 </div>
+                <div class="ms-shop-cart-small">
+                    <ShoppingCart :restaurant="restaurant"></ShoppingCart>
+                </div>
+            </div>
+            <div class="ms-shop-cart-big">
                 <ShoppingCart :restaurant="restaurant"></ShoppingCart>
             </div>
+
         </div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -185,7 +195,7 @@ export default {
 
                         </div>
                         <p v-if="selectedDish">{{ selectedDish.description }}</p>
-                        <h3 v-if="selectedDish">{{ selectedDish.price }} €</h3>
+                        <h3 v-if="selectedDish">{{ selectedDish.price.replace(".", ',') }} €</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
@@ -207,8 +217,6 @@ export default {
 @use '../style/partials/variables' as *;
 
 .ms-dish-img {
-    height: 90px;
-    max-width: 100%;
     object-fit: cover;
     object-position: center;
 }
@@ -219,5 +227,164 @@ export default {
 
 .badge {
     background-color: $primary-color;
+}
+
+.ms-card-button {
+    position: absolute;
+}
+
+.ms-dish-card {
+    position: relative;
+}
+
+// MEDIA QUEARY
+@media screen and (max-width: 4000px) {
+    .ms-rounded {
+        border-top-left-radius: 0.375rem;
+        border-top-right-radius: 0.375rem;
+    }
+
+    .ms-shop-cart-small {
+        display: block;
+    }
+
+    .ms-shop-cart-big {
+        display: none;
+    }
+
+    .ms-button-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
+
+    .ms-dish-img {
+        height: 90px;
+        max-width: 100%;
+    }
+
+    .ms-dish-card {
+        height: 240px;
+    }
+
+    .ms-card-button {
+        width: 80%;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%)
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .ms-rounded {
+        border-top-left-radius: 0.375rem;
+        border-top-right-radius: 0.375rem;
+    }
+
+    .ms-shop-cart-small {
+        display: block;
+    }
+
+    .ms-shop-cart-big {
+        display: none;
+    }
+
+    .ms-button-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
+
+    .ms-dish-img {
+        height: 90px;
+        max-width: 100%;
+    }
+}
+
+// @media screen and (max-width: 768px) and (min-width: 577px) {
+//     .ms-rounded {
+//         border-top-left-radius: 0.375rem;
+//         border-top-right-radius: 0.375rem;
+//     }
+
+//     .ms-shop-cart-small {
+//         display: none;
+//     }
+
+//     .ms-shop-cart-big {
+//         display: block;
+//     }
+
+//     .ms-button-border {
+//         border: 1px solid #dee2e6;
+//         border-radius: 0.375rem;
+//     }
+
+//     .ms-justify-center {
+//         justify-content: center;
+//     }
+
+//     .ms-dish-img {
+//         height: 90px;
+//         max-width: 100%;
+//     }
+
+//     .ms-card-button {
+//         left: 50%;
+//         bottom: 10px;
+//         width: 80%;
+//         transform: translate(-50%);
+//     }
+
+// }
+
+@media screen and (max-width: 768px) {
+    .ms-dish-card {
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+        position: relative;
+
+        .ms-button-border {
+            border: none;
+        }
+    }
+
+    .ms-single-dish {
+        width: 100%;
+    }
+
+
+
+    .ms-card-text {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .ms-rounded {
+        border-top-left-radius: 0.375rem;
+        border-bottom-left-radius: 0.375rem;
+        border-top-right-radius: 0rem;
+    }
+
+    .ms-shop-cart-small {
+        display: none;
+    }
+
+    .ms-shop-cart-big {
+        display: block;
+    }
+
+    .ms-dish-img {
+        height: 110px;
+        min-width: 200px;
+        max-width: 200px;
+    }
+
+    .ms-card-button {
+        flex-direction: column-reverse;
+        width: fit-content;
+        position: absolute;
+        bottom: 14px;
+        right: 10px;
+    }
 }
 </style>

@@ -1,8 +1,12 @@
 <script>
 import { store } from '../store.js';
+import ShoppingCart from '../components/ShoppingCart.vue';
 
 export default {
     name: 'AppCheckout',
+    components: {
+        ShoppingCart
+    },
     data() {
         return {
             store,
@@ -105,26 +109,7 @@ export default {
                     </div>
                 </div>
                 <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="fw-bold">Il tuo ordine</div>
-                    </div>
-                    <div class="border rounded-1 p-2">
-                        <div class="d-flex justify-content-between border-bottom px-2 py-4"
-                            v-for="(dish, index) in store.cart">
-                            <div class="d-flex gap-3">
-                                <div>{{ dish.quantity }}x</div>
-                                <div>{{ dish.name }}</div>
-                            </div>
-                            <div class="d-flex gap-3">
-                                <div v-if="dish.quantity == 1">{{ dish.price }} €</div>
-                                <div v-else>{{ store.newPriceArray[dish.id] }} €</div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between p-2 mt-2">
-                            <div>Totale dell'ordine</div>
-                            <div class="fw-bold">{{ store.totalPrice }} €</div>
-                        </div>
-                    </div>
+                    <ShoppingCart></ShoppingCart>
                 </div>
             </div>
         </div>

@@ -110,7 +110,7 @@ export default {
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
-                                    categoryIntern.flag }}</span>
+                    categoryIntern.flag }}</span>
                             </span>
                             {{ category.name }}
                         </label>
