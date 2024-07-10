@@ -1,9 +1,13 @@
 <script>
 import axios from 'axios';
 import { store } from '../store.js';
+import RestaurantCard from '../components/RestaurantCard.vue';
 
 export default {
     name: 'AppHome',
+    components: {
+        RestaurantCard
+    },
     data() {
         return {
             store,
