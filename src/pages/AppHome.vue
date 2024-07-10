@@ -131,7 +131,7 @@ export default {
     <div class="container py-3">
         <div class="row row-cols-3 flex-row">
             <template v-if="selectedCategories.length > 0">
-                <div class="col mb-3" v-for="restaurant in restaurants">
+                <div class="col col-sm-6 col-md-4 col-lg-4 mb-3" v-for="restaurant in restaurants">
                     <div class="card w-100 h-100">
                         <!-- <img :src="restaurant.image ? category.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurant.restaurant_name }}"> -->
                         <div class="card-body">
@@ -219,6 +219,10 @@ export default {
 
     .form-check {
         display: inline-block;
+    }
+
+    .col {
+        width: 100%;
     }
 
 }
