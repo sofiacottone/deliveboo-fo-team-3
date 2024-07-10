@@ -97,8 +97,6 @@ export default {
     mounted() {
         this.getSingleRestaurant();
         this.getStoredCart();
-        console.log(store.storedProducts);
-        console.log(store.storedPrice);
     },
 
 

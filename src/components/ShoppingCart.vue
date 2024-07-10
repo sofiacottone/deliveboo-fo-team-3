@@ -72,6 +72,9 @@ export default {
             this.storeCart();
         },
 
+    },
+    mounted() {
+        console.log(store.storedProducts)
     }
 
 }
