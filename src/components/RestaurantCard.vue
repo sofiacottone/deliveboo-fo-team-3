@@ -69,4 +69,8 @@ export default {
     object-fit: cover;
     object-position: center;
 }
+
+.badge {
+    background-color: $primary-color;
+}
 </style>
