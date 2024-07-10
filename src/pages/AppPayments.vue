@@ -1,5 +1,5 @@
 <script>
-import { Axios } from 'axios';
+import axios from 'axios';
 import { store } from '../store.js';
 
 export default {
@@ -42,43 +42,58 @@ export default {
                         };
 
                         // Imposta lo stato per mostrare i dettagli dell'ordine
-                        this.orderPlaced = true;
                         console.log(this.orderData);
+                        axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
+                            .then((response) => {
+                                this.success = response.data.success;
+                                if (this.success) {
+                                    this.orderPlaced = true;
+                                    console.log(store.orderData);
+                                    // this.isValid = true;
+                                    // this.$router.push({ name: 'order-confirm' });
+                                    store.currentRestaurant = null;
+                                    store.cart = [];
+                                    store.totalPrice = 0;
+                                    localStorage.clear();
+                                } else {
+                                    this.errors = response.data.errors;
+                                }
+                            })
                     });
                 });
             });
         }
     },
-    getValidation() {
-        const button = document.querySelector('#submit-button');
+    // getValidation() {
+    //     const button = document.querySelector('#submit-button');
 
-        braintree.dropin.create({
-            authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
-            selector: '#dropin-container'
-        }, function (err, instance) {
-            button.addEventListener('click', function () {
-                instance.requestPaymentMethod(function (err, payload) {
-                    // Submit payload.nonce to your server
-                });
-                axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
-                    .then((response) => {
-                        this.success = response.data.success;
-                        if (this.success) {
-                            console.log(store.orderData);
-                            this.isValid = true;
-                            // this.$router.push({ name: 'order-confirm' });
-                            store.currentRestaurant = null;
-                            store.cart = [];
-                            store.totalPrice = 0;
-                            localStorage.clear();
-                        } else {
-                            this.errors = response.data.errors;
-                        }
-                    })
-            })
-        });
-        this.goToConfirm();
-    },
+    //     braintree.dropin.create({
+    //         authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+    //         selector: '#dropin-container'
+    //     }, function (err, instance) {
+    //         button.addEventListener('click', function () {
+    //             instance.requestPaymentMethod(function (err, payload) {
+    //                 // Submit payload.nonce to your server
+    //             });
+    //             axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
+    //                 .then((response) => {
+    //                     this.success = response.data.success;
+    //                     if (this.success) {
+    //                         console.log(store.orderData);
+    //                         this.isValid = true;
+    //                         // this.$router.push({ name: 'order-confirm' });
+    //                         store.currentRestaurant = null;
+    //                         store.cart = [];
+    //                         store.totalPrice = 0;
+    //                         localStorage.clear();
+    //                     } else {
+    //                         this.errors = response.data.errors;
+    //                     }
+    //                 })
+    //         })
+    //     });
+    //     this.goToConfirm();
+    // },
     mounted() {
         this.getValidation();
     }
