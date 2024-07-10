@@ -15,7 +15,8 @@ export default {
             restaurant: {},
             cart: [],
             selectedDish: null,
-            showNewCartModal: false
+            showNewCartModal: false,
+            currentDish: null
         }
     },
     methods: {
@@ -23,6 +24,7 @@ export default {
             axios.get(`${this.store.apiBaseUrl}/api/restaurants/${this.$route.params.slug}`)
                 .then((response) => {
                     this.restaurant = response.data.results;
+                    store.currentRestaurant = this.restaurant.id;
                     // console.log(this.restaurant);
                 });
         },
@@ -34,16 +36,21 @@ export default {
             return window.history.length > 2
         },
         addDishOnCart(dish, restaurant) {
-
-            // this.changeRestaurantModal();
+            console.log('Attempting to add dish:', dish);
+            console.log('Current cart:', store.cart);
+            console.log('Current restaurant:', store.currentRestaurant);
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
                 existingDish.quantity++;
                 store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
-                // console.log(store.newPriceArray)
                 store.totalPrice += existingDish.price;
             } else if (store.cart.length > 0 && store.cart[0].restaurant.id !== store.currentRestaurant) {
+                this.currentDish = dish;
+                console.log('current dish:', this.currentDish);
                 this.showNewCartModal = true;
+                console.log(this.showNewCartModal);
+                console.log('cart rest', store.cart[0].restaurant.id);
+                console.log('curr rest', store.currentRestaurant);
             } else {
                 const cartItem = {
                     id: dish.id,
@@ -60,8 +67,6 @@ export default {
             store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
             this.storeCart();
-            // console.log(store.newPriceArray);
-            // console.log(store.totalPrice);
 
         },
         selectDish(dish) {
@@ -111,8 +116,6 @@ export default {
 
     mounted() {
         this.getSingleRestaurant();
-        // this.getStoredCart();
-        // console.log(store.storedProducts);
     },
 
 
@@ -162,7 +165,7 @@ export default {
                                         <i class="fa-solid fa-minus p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        data-bs-toggle="modal" data-bs-target="#changeCart"
+                                        data-bs-toggle="modal" data-bs-target="#changeCartModal"
                                         @click="addDishOnCart(dish, restaurant)">
                                         <i class="fa-solid fa-plus p-1"></i>
                                     </div>
@@ -210,13 +213,14 @@ export default {
         </div>
 
         <!-- Modal to change restaurant cart -->
-        <div v-if="store.cart.length > 0 && showNewCartModal" @close="showNewCartModal = false">
-            <div class="modal fade" id="changeCart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="changeCart" aria-hidden="true">
+        <div v-if="store.cart.length > 0" v-show="showNewCartModal" @close="showNewCartModal = false">
+            <div class="modal fade" id="changeCartModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="changeCartModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="confirmchangeCart">Vuoi creare un nuovo carrello?</h1>
+                            <h1 class="modal-title fs-5" id="changeCartModalLabel">Vuoi creare un nuovo carrello?
+                            </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -229,7 +233,7 @@ export default {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                @click="clearCart">Nuovo
+                                @click="clearCart(); addDishOnCart(currentDish, restaurant)">Nuovo
                                 carrello</button>
                         </div>
                     </div>
