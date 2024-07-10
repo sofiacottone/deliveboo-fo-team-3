@@ -224,7 +224,7 @@ export default {
 
 
 // MEDIA QUEARY
-@media screen and (max-width: 1920px) {
+@media screen and (max-width: 4000px) {
     .ms-rounded {
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
