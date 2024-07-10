@@ -2,15 +2,12 @@ import { reactive } from 'vue'
 
 export const store = reactive({
     apiBaseUrl: 'http://127.0.0.1:8000',
-    restaurantsByCategories: [],
-    selectedCategories: '',
     newPrice: 0,
     newPriceArray: [],
     totalPrice: 0,
     cart: [],
-    currentRestaurant: null
-    // storedProducts: [],
-    // storedPrice: null,
+    currentRestaurant: null,
+    orderData: {}
 
 });
 
@@ -29,5 +26,4 @@ store.cart.forEach(dish => {
     store.newPriceArray[dish.id] = dish.price * dish.quantity;
     console.log(store.newPriceArray)
 });
-
 //localStorage.clear()
