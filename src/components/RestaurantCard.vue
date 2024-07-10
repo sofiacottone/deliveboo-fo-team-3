@@ -30,7 +30,7 @@ export default {
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
                     <div>
-                        <template v-for="category in restaurant.categories">
+                        <template v-for="category in restaurantDetail.categories">
                             <span class="badge mx-1">{{ category.name }}</span>
                         </template>
                     </div>
