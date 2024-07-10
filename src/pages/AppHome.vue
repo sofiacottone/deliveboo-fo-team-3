@@ -59,11 +59,13 @@ export default {
                     flag: '🍝'
                 },
             ],
+            loading: false
         }
     },
 
     methods: {
         getRestaurantList() {
+            this.loading = true
             if (this.selectedCategories.length == 0) {
                 this.queryParams.categories = undefined;
             } else {
@@ -75,6 +77,7 @@ export default {
             })
                 .then((response) => {
                     this.restaurants = response.data.results;
+                    this.loading = false
                 });
         },
         getCategoryList() {
@@ -107,7 +110,7 @@ export default {
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
-                    categoryIntern.flag }}</span>
+                                    categoryIntern.flag }}</span>
                             </span>
                             {{ category.name }}
                         </label>
@@ -119,7 +122,24 @@ export default {
     <div class="container py-3">
         <div class="row row-cols-3 flex-row">
             <template v-if="selectedCategories.length > 0">
-                <div class="col mb-3" v-for="restaurant in restaurants">
+                <div v-if="loading">
+                    <div class="card" aria-hidden="true">
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-3" v-else v-for="restaurant in restaurants">
                     <div class="card w-100 h-100">
                         <!-- <img :src="restaurant.image ? category.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurant.restaurant_name }}"> -->
                         <div class="card-body">
