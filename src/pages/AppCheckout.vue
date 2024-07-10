@@ -6,7 +6,12 @@ export default {
     data() {
         return {
             store,
-            isValid: false
+            isValid: false,
+            userFullName: '',
+            userEmail: '',
+            userAddress: '',
+            userPhone: '',
+            success: null,
         }
     },
     methods: {
@@ -37,7 +42,20 @@ export default {
             if (this.isValid) {
                 this.$router.push({ name: 'payments' });
             }
+        },
+        sendForm() {
+            store.orderData = {
+                full_name: this.userFullName,
+                address: this.userAddress,
+                phone_number: this.userPhone,
+                email: this.userEmail,
+                price: store.totalPrice,
+                dishes: store.cart
+            }
         }
+    },
+    mounted() {
+        // this.sendForm();
     }
 }
 </script>
@@ -51,15 +69,16 @@ export default {
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <form @submit.prevent="handleSubmit">
+                                <form @submit.prevent="handleSubmit(); sendForm()">
                                     <div class="mb-4 row">
                                         <label for="fullname" class="col-md-4 col-form-label text-md-right">Nome e
                                             Cognome<span style="color: red;">*</span>
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="fullname" pattern=".{5,250}"
-                                                title="Il nome deve contenere almeno 5 lettere" required>
+                                            <input type="text" v-model="userFullName" class="form-control" id="fullname"
+                                                pattern=".{5,250}" title="Il nome deve contenere almeno 5 lettere"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -68,7 +87,8 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="email" class="form-control" id="email" required>
+                                            <input type="email" v-model="userEmail" class="form-control" id="email"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -78,7 +98,8 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="address" required>
+                                            <input type="text" v-model="userAddress" class="form-control" id="address"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
@@ -87,8 +108,8 @@ export default {
                                         </label>
 
                                         <div class="col-md-6">
-                                            <input type="tel" class="form-control" id="phone" required
-                                                pattern="[0-9]{10,13}"
+                                            <input type="tel" v-model="userPhone" class="form-control" id="phone"
+                                                required pattern="[0-9]{10,13}"
                                                 title="Il numero deve contenere 10 o 12 cifre(con prefisso)">
                                         </div>
                                     </div>
@@ -104,9 +125,9 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="border rounded-1 p-3 ms-cart col-md-4 col-sm-12" v-if="store.cart.length > 0">
+                <div class="w-25 border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0">
                     <div class="d-flex justify-content-between mb-3">
-                        <div class="fw-bold">Il tuo ordine</div>
+                        <div class="fw-bold">Il tuo ordine da {{ store.cart[0].restaurant.restaurant_name }}</div>
                     </div>
                     <div class="border rounded-1 p-2">
                         <div class="d-flex justify-content-between border-bottom px-2 py-4"
@@ -122,7 +143,7 @@ export default {
                         </div>
                         <div class="d-flex justify-content-between p-2 mt-2">
                             <div>Totale dell'ordine</div>
-                            <div class="fw-bold">{{ store.totalPrice }} €</div>
+                            <div class="fw-bold">{{ store.totalPrice.toFixed(2) }} €</div>
                         </div>
                     </div>
                 </div>
