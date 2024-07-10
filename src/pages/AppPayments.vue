@@ -33,11 +33,7 @@ export default {
                             console.error(err);
                             return;
                         }
-                        //errore manuale della carta 4000 1111 1111 1115
-                        if (payload.details.bin == "400011") {
-                            self.$router.push({ name: 'orderfail' });
-                            return;
-                        }
+
                         // Invia payload.nonce e i dati dell'ordine al server
                         this.orderData = {
                             cart: this.store.cart,
