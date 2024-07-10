@@ -151,23 +151,9 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="col mb-3" v-else v-for="restaurant in restaurants">
-                    <div class="card w-100 h-100">
-                        <!-- <img :src="restaurant.image ? category.image : getImageUrl('fast-food.webp')" class="card-img-top" alt="{{ restaurant.restaurant_name }}"> -->
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
-                                <div>
-                                    <template v-for="category in restaurant.categories">
-                                        <span class="badge mx-1">{{ category.name }}</span>
-                                    </template>
-                                </div>
-                            </div>
-                            <router-link :to="{ name: 'single-restaurant', params: { slug: restaurant.slug } }">
-                                <button class="ms-btn-custom">Ordina qui</button>
-                            </router-link>
-                        </div>
-                    </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 my-3" v-else v-for="restaurant in restaurants"
+                    :key="restaurant.id">
+                    <RestaurantCard :restaurantDetail="restaurant"></RestaurantCard>
                 </div>
             </template>
         </div>

@@ -27,7 +27,14 @@ export default {
             <img class="card-img-top"
                 :src="restaurantDetail.image ? `${this.store.apiBaseUrl}/storage/${restaurantDetail.image}` : getImageUrl('fast-food.webp')">
             <div class="card-body">
-                <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{ restaurantDetail.restaurant_name }}</h5>
+                    <div>
+                        <template v-for="category in restaurant.categories">
+                            <span class="badge mx-1">{{ category.name }}</span>
+                        </template>
+                    </div>
+                </div>
                 <button class="ms-btn-custom">Ordina qui</button>
             </div>
         </div>
