@@ -111,10 +111,10 @@ export default {
                         class="ms-button-border text-center px-2 text-center ms-primary h-100 d-flex justify-content-center align-items-center">+</button>
                 </div>
             </div>
-            <div class="d-flex justify-content-between p-2 mt-2">
-                <div>Totale dell'ordine</div>
-                <div class="fw-bold">{{ store.totalPrice.toFixed(2).replace(".", ',') }} €</div>
-            </div>
+        </div>
+        <div class="d-flex justify-content-between p-2 mt-2">
+            <div>Totale dell'ordine</div>
+            <div class="fw-bold">{{ store.totalPrice.toFixed(2).replace(".", ',') }} €</div>
         </div>
         <router-link :to="{ name: 'checkout' }">
             <div class="d-flex justify-content-center p-3 pb-0">

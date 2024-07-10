@@ -138,7 +138,7 @@ export default {
                                     <div class="col-sm-8">
                                         <div class="py-2 px-2 fw-bold" data-dish-name="{{dish.name}}">{{ dish.name }}
                                         </div>
-                                        <div class="py-1 px-2 fw-bold">{{ dish.price.replace("." , ',') }} €</div>
+                                        <div class="py-1 px-2 fw-bold">{{ dish.price.replace(".", ',') }} €</div>
                                     </div>
                                 </div>
 
@@ -186,7 +186,7 @@ export default {
 
                         </div>
                         <p v-if="selectedDish">{{ selectedDish.description }}</p>
-                        <h3 v-if="selectedDish">{{ selectedDish.price.replace("." , ',') }} €</h3>
+                        <h3 v-if="selectedDish">{{ selectedDish.price.replace(".", ',') }} €</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
@@ -220,6 +220,17 @@ export default {
     background-color: $primary-color;
 }
 
+.ms-card-button {
+    bottom: 10px;
+    position: absolute;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%);
+}
+
+.ms-dish-card {
+    position: relative;
+}
 
 // MEDIA QUEARY
 @media screen and (max-width: 4000px) {
@@ -240,13 +251,13 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
-   
-    .ms-dish-img{
+
+    .ms-dish-img {
         height: 90px;
         max-width: 100%;
     }
 
-    .ms-dish-card{
+    .ms-dish-card {
         height: 240px;
     }
 }
@@ -269,8 +280,8 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
-    
-    .ms-dish-img{
+
+    .ms-dish-img {
         height: 90px;
         max-width: 100%;
     }
@@ -294,14 +305,16 @@ export default {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
     }
+
     .ms-justify-center {
         justify-content: center;
     }
 
-    .ms-dish-img{
+    .ms-dish-img {
         height: 90px;
         max-width: 100%;
-    }    
+    }
+
 }
 
 @media screen and (max-width: 576px) {
@@ -319,7 +332,7 @@ export default {
         width: 100%;
     }
 
-   
+
 
     .ms-card-text {
         display: flex;
@@ -340,10 +353,20 @@ export default {
         display: block;
     }
 
-    .ms-dish-img{
+    .ms-dish-img {
         height: 110px;
         min-width: 200px;
         max-width: 200px;
+    }
+
+    .ms-card-button {
+        right: 0px;
+        position: absolute;
+
+    }
+
+    .ms-dish-card {
+        position: relative;
     }
 }
 </style>
