@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { store } from '../store.js';
 import ShoppingCart from '../components/ShoppingCart.vue';
-
+import Modal from 'bootstrap/js/dist/modal';
 
 export default {
     name: 'SingleRestaurant',
@@ -35,15 +35,13 @@ export default {
         hasHistory() {
             return window.history.length > 2
         },
-        addDishOnCart(dish, restaurant) {
+        handleAddDishOnCart(dish, restaurant) {
             console.log('Attempting to add dish:', dish);
             console.log('Current cart:', store.cart);
             console.log('Current restaurant:', store.currentRestaurant);
             const existingDish = store.cart.find(item => item.id === dish.id);
             if (existingDish) {
-                existingDish.quantity++;
-                store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
-                store.totalPrice += existingDish.price;
+                this.addDishOnCart(dish, restaurant);
             } else if (store.cart.length > 0 && store.cart[0].restaurant.id !== store.currentRestaurant) {
                 this.currentDish = dish;
                 console.log('current dish:', this.currentDish);
@@ -51,6 +49,18 @@ export default {
                 console.log(this.showNewCartModal);
                 console.log('cart rest', store.cart[0].restaurant.id);
                 console.log('curr rest', store.currentRestaurant);
+                const modal = new Modal(document.getElementById('changeCartModal'));
+                modal.show();
+            } else {
+                this.addDishOnCart(dish, restaurant);
+            }
+        },
+        addDishOnCart(dish, restaurant) {
+            const existingDish = store.cart.find(item => item.id === dish.id);
+            if (existingDish) {
+                existingDish.quantity++;
+                store.newPriceArray[dish.id] = existingDish.price * existingDish.quantity;
+                store.totalPrice += existingDish.price;
             } else {
                 const cartItem = {
                     id: dish.id,
@@ -67,7 +77,6 @@ export default {
             store.totalPrice = store.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
             this.storeCart();
-
         },
         selectDish(dish) {
             this.selectedDish = dish;
@@ -165,8 +174,7 @@ export default {
                                         <i class="fa-solid fa-minus p-1"></i>
                                     </div>
                                     <div class="border rounded w-75 text-center ms-primary" role="button"
-                                        data-bs-toggle="modal" data-bs-target="#changeCartModal"
-                                        @click="addDishOnCart(dish, restaurant)">
+                                        @click="handleAddDishOnCart(dish, restaurant)">
                                         <i class="fa-solid fa-plus p-1"></i>
                                     </div>
                                 </div>
@@ -200,8 +208,7 @@ export default {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="addDishOnCart(selectedDish)">Aggiungi al
+                        <button type="button" class="btn btn-primary" @click="addDishOnCart(selectedDish)">Aggiungi al
                             carrello</button>
                         <!-- <div class="border rounded w-75 text-center ms-primary" role="button"
                             @click="addDishOnCart(selectedDish)">
