@@ -107,7 +107,19 @@ export default {
                         <label class="btn btn-outline-primary" :for="category.name">
                             <span v-for="categoryIntern in categoryListIntern">
                                 <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
-                                    categoryIntern.flag }}</span>
+                    categoryIntern.flag }}</span>
+                            </span>
+                            {{ category.name }}
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" :id="category.name" v-model="selectedCategories"
+                            name="categoryCheck" @change="getRestaurantList" :value="category.name">
+                        <label class="form-check-label" :for="category.name">
+                            <span v-for="categoryIntern in categoryListIntern">
+                                <span class="ms-icon-category" v-if="categoryIntern.name === category.name">{{
+                    categoryIntern.flag }}</span>
                             </span>
                             {{ category.name }}
                         </label>
@@ -175,21 +187,39 @@ export default {
 .badge {
     background-color: $primary-color;
 }
+
 @media screen and (max-width: 1920px) {
-.ms-block-element {
-    display: flex;
+    .ms-block-element {
+        display: flex;
+    }
+
 }
+
+@media screen and (min-width: 577px) {
+
+    .form-check {
+        display: none;
+    }
 
 }
 
 @media screen and (max-width: 576px) {
-.ms-block-element {
-    display: block;
-    span {
-        margin-top: 6px;
-        margin-bottom: 6px;
+    .ms-block-element {
+        display: block;
+
+        span {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
     }
-}
+
+    .btn-group {
+        display: none;
+    }
+
+    .form-check {
+        display: inline-block;
+    }
 
 }
 </style>
