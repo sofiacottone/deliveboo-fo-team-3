@@ -74,7 +74,8 @@ export default {
 
     },
     mounted() {
-        console.log(store.storedProducts)
+        console.log(store.storedProducts);
+        console.log(this.$router.currentRoute.value.name);
     }
 
 }
@@ -85,7 +86,8 @@ export default {
     <div class=" border rounded-1 p-3 ms-cart my-3" v-if="store.storedProducts.length > 0">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold ">Il tuo ordine</div>
-            <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
+            <div v-if="$router.currentRoute.value.name == 'single-restaurant'" data-bs-toggle="modal"
+                data-bs-target="#confirmClearCart">
                 <div class="ms-primary" role="button"><i class="fa-solid fa-trash p-1"></i></div>
             </div>
         </div>
@@ -119,7 +121,7 @@ export default {
             <div>Totale dell'ordine</div>
             <div class="fw-bold">{{ store.totalPrice.toFixed(2).replace(".", ',') }} €</div>
         </div>
-        <router-link :to="{ name: 'checkout' }">
+        <router-link v-if="$router.currentRoute.value.name == 'single-restaurant'" :to="{ name: 'checkout' }">
             <div class="d-flex justify-content-center p-3 pb-0">
                 <div class="ms-btn-custom" role="button">Vai al pagamento</div>
             </div>
