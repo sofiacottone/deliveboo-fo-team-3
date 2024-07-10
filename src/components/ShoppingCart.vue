@@ -36,7 +36,7 @@ export default {
 
 <template>
     <div class="w-25 border rounded-1 p-3 ms-cart"
-        v-if="store.cart.length > 0 && store.currentRestaurant == restaurant.id">
+        v-if="store.cart.length > 0 && store.currentRestaurant == store.cart[0].restaurant.id">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold">Il tuo ordine</div>
             <div data-bs-toggle="modal" data-bs-target="#confirmClearCart">
@@ -45,7 +45,7 @@ export default {
         </div>
         <div class="fw-bold pb-2">Carrello</div>
         <div class="border rounded-1 p-2">
-            <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for="dish in store.cart">
+            <div class="d-flex justify-content-between border-bottom px-2 py-4" v-for=" dish  in  store.cart ">
                 <div class="d-flex gap-3">
                     <div>{{ dish.quantity }}x</div>
                     <div>{{ dish.name }}</div>
