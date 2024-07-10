@@ -83,8 +83,7 @@ export default {
 </script>
 
 <template>
-    <div class="w-25 border rounded-1 p-3 ms-cart"
-        v-if="store.cart.length > 0 && store.currentRestaurant == restaurant.id">
+    <div class="border rounded-1 p-3 ms-cart" v-if="store.cart.length > 0 && store.currentRestaurant == restaurant.id">
         <div class="d-flex justify-content-between mb-3">
             <div class="fw-bold ">Il tuo ordine</div>
             <div v-if="$router.currentRoute.value.name == 'single-restaurant'" data-bs-toggle="modal"
@@ -139,7 +138,7 @@ export default {
             </div>
         </div>
     </div>
-    <div class="ms-mini-cart border rounded-1 p-2 mt-2" v-if="store.storedProducts.length > 0">
+    <div class="ms-mini-cart border rounded-1 p-2 mt-2" v-if="store.cart.length > 0">
         <div class="fw-bold my-auto">{{ store.totalPrice.toFixed(2).replace(".", ',') }} €</div>
         <router-link :to="{ name: 'checkout' }">
             <div>
