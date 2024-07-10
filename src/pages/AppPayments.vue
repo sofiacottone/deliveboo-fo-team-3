@@ -33,7 +33,11 @@ export default {
                             console.error(err);
                             return;
                         }
-
+                        //errore manuale della carta 4000 1111 1111 1115
+                        if (payload.details.bin == "400011") {
+                            self.$router.push({ name: 'orderfail' });
+                            return;
+                        }
                         // Invia payload.nonce e i dati dell'ordine al server
                         this.orderData = {
                             cart: this.store.cart,
@@ -64,36 +68,6 @@ export default {
             });
         }
     },
-    // getValidation() {
-    //     const button = document.querySelector('#submit-button');
-
-    //     braintree.dropin.create({
-    //         authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
-    //         selector: '#dropin-container'
-    //     }, function (err, instance) {
-    //         button.addEventListener('click', function () {
-    //             instance.requestPaymentMethod(function (err, payload) {
-    //                 // Submit payload.nonce to your server
-    //             });
-    //             axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
-    //                 .then((response) => {
-    //                     this.success = response.data.success;
-    //                     if (this.success) {
-    //                         console.log(store.orderData);
-    //                         this.isValid = true;
-    //                         // this.$router.push({ name: 'order-confirm' });
-    //                         store.currentRestaurant = null;
-    //                         store.cart = [];
-    //                         store.totalPrice = 0;
-    //                         localStorage.clear();
-    //                     } else {
-    //                         this.errors = response.data.errors;
-    //                     }
-    //                 })
-    //         })
-    //     });
-    //     this.goToConfirm();
-    // },
     mounted() {
         this.getValidation();
     }
@@ -119,8 +93,8 @@ export default {
                         <div class="h3 border-bottom pb-1">Riepilogo dell'ordine</div>
                         <div class="h5 mt-3">I tuoi dati:</div>
                         <div><span class="fw-bold">Indirizzo:</span> {{ store.orderData.address }}</div>
-                        <div><span class="fw-bold">Telefono:</span>{{ store.orderData.phone_number }}</div>
-                        <div><span class="fw-bold">Email:</span>{{ store.orderData.email }}</div>
+                        <div><span class="fw-bold">Telefono:</span> {{ store.orderData.phone_number }}</div>
+                        <div><span class="fw-bold">Email:</span> {{ store.orderData.email }}</div>
 
                         <div class="h5 mt-3">I piatti che hai ordinato</div>
                         <div v-for="dish in store.orderData.dishes" class="d-flex gap-3">
