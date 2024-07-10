@@ -185,9 +185,9 @@ export default {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="ms-shop-cart-small">
-                <ShoppingCart :restaurant="restaurant"></ShoppingCart>
+                <div class="ms-shop-cart-small">
+                    <ShoppingCart :restaurant="restaurant"></ShoppingCart>
+                </div>
             </div>
         </div>
         <div class="ms-shop-cart-big">
