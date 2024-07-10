@@ -1,10 +1,15 @@
 <script>
+import axios from 'axios';
 import { store } from '../store.js';
+
 export default {
     name: 'AppHome',
     data() {
         return {
-            store
+            store,
+            success: null,
+            errors: {},
+            isValid: false
         }
     }, methods: {
         getValidation() {
@@ -18,9 +23,30 @@ export default {
                     instance.requestPaymentMethod(function (err, payload) {
                         // Submit payload.nonce to your server
                     });
+                    axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
+                        .then((response) => {
+                            this.success = response.data.success;
+                            if (this.success) {
+                                console.log(store.orderData);
+                                this.isValid = true;
+                                // this.$router.push({ name: 'order-confirm' });
+                                store.currentRestaurant = null;
+                                store.cart = [];
+                                store.totalPrice = 0;
+                                localStorage.clear();
+                            } else {
+                                this.errors = response.data.errors;
+                            }
+                        })
                 })
             });
-        }
+            this.goToConfirm();
+        },
+        goToConfirm() {
+            if (this.isValid) {
+                this.$router.push({ name: 'order-confirm' });
+            }
+        },
     },
     mounted() {
         this.getValidation()
@@ -30,7 +56,11 @@ export default {
 
 
 <template>
-
+    <div v-if="errors">
+        <div v-for="error in errors">
+            {{ error }}
+        </div>
+    </div>
 
     <div class="container">
         <h4>Inserisci i dati della carta per effettuare il pagamento</h4>
@@ -56,6 +86,7 @@ export default {
     border-style: solid;
     border-width: 1px;
     border-radius: 3px;
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     display: inline-block;

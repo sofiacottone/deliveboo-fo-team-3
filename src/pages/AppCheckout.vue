@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import { store } from '../store.js';
 
 export default {
@@ -13,8 +12,6 @@ export default {
             userAddress: '',
             userPhone: '',
             success: null,
-            errors: {},
-            successMessage: ''
         }
     },
     methods: {
@@ -47,7 +44,7 @@ export default {
             }
         },
         sendForm() {
-            const orderData = {
+            store.orderData = {
                 full_name: this.userFullName,
                 address: this.userAddress,
                 phone_number: this.userPhone,
@@ -55,21 +52,10 @@ export default {
                 price: store.totalPrice,
                 dishes: store.cart
             }
-            axios.post(`${this.store.apiBaseUrl}/api/orders`, orderData)
-                .then((response) => {
-                    this.success = response.data.success;
-                    if (this.success) {
-                        this.successMessage = 'Ordine inviato correttamente!';
-                        console.log(orderData);
-                        store.currentRestaurant = null;
-                        store.cart = [];
-                        store.totalPrice = 0;
-                        localStorage.clear();
-                    } else {
-                        this.errors = response.data.errors;
-                    }
-                })
         }
+    },
+    mounted() {
+        // this.sendForm();
     }
 }
 </script>
@@ -83,7 +69,7 @@ export default {
                     <div class="card">
                         <div class="card-header">
                             <div class="card-body">
-                                <form @submit.prevent="handleSubmit">
+                                <form @submit.prevent="handleSubmit(); sendForm()">
                                     <div class="mb-4 row">
                                         <label for="fullname" class="col-md-4 col-form-label text-md-right">Nome e
                                             Cognome<span style="color: red;">*</span>
