@@ -3,74 +3,111 @@ import axios from 'axios';
 import { store } from '../store.js';
 
 export default {
-    name: 'AppHome',
+    name: 'AppPayments',
     data() {
         return {
             store,
-            success: null,
-            errors: {},
-            isValid: false
-        }
-    }, methods: {
+            orderPlaced: false, // stato per controllare se l'ordine è stato piazzato
+            orderData: null, // dati dell'ordine
+            menuLinks: [
+                {
+                    label: 'Home',
+                    routeName: 'home'
+                },
+            ]
+        };
+    },
+    methods: {
         getValidation() {
             const button = document.querySelector('#submit-button');
 
             braintree.dropin.create({
                 authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
                 selector: '#dropin-container'
-            }, function (err, instance) {
-                button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (err, payload) {
-                        // Submit payload.nonce to your server
+            }, (err, instance) => {
+
+
+                button.addEventListener('click', () => {
+                    instance.requestPaymentMethod((err, payload) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+
+                        // Invia payload.nonce e i dati dell'ordine al server
+                        this.orderData = {
+                            cart: this.store.cart,
+                            totalPrice: this.store.totalPrice,
+                            paymentNonce: payload.nonce
+                        };
+
+                        // Imposta lo stato per mostrare i dettagli dell'ordine
+                        console.log(this.orderData);
+                        axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
+                            .then((response) => {
+                                this.success = response.data.success;
+                                if (this.success) {
+                                    this.orderPlaced = true;
+                                    console.log(store.orderData);
+                                    // this.isValid = true;
+                                    // this.$router.push({ name: 'order-confirm' });
+                                    store.currentRestaurant = null;
+                                    store.cart = [];
+                                    store.totalPrice = 0;
+                                    localStorage.clear();
+                                } else {
+                                    this.errors = response.data.errors;
+                                }
+                            })
                     });
-                    axios.post(`${store.apiBaseUrl}/api/orders`, store.orderData)
-                        .then((response) => {
-                            this.success = response.data.success;
-                            if (this.success) {
-                                console.log(store.orderData);
-                                this.isValid = true;
-                                // this.$router.push({ name: 'order-confirm' });
-                                store.currentRestaurant = null;
-                                store.cart = [];
-                                store.totalPrice = 0;
-                                localStorage.clear();
-                            } else {
-                                this.errors = response.data.errors;
-                            }
-                        })
-                })
+                });
             });
-            this.goToConfirm();
-        },
-        goToConfirm() {
-            if (this.isValid) {
-                this.$router.push({ name: 'order-confirm' });
-            }
-        },
+        }
     },
     mounted() {
-        this.getValidation()
+        this.getValidation();
     }
 }
 </script>
 
-
 <template>
-    <div v-if="errors">
-        <div v-for="error in errors">
-            {{ error }}
-        </div>
-    </div>
-
     <div class="container">
-        <h4>Inserisci i dati della carta per effettuare il pagamento</h4>
-        <div class="row">
-            <div class="col-md-8">
-                <div id="dropin-container"></div>
-                <button id="submit-button" class="button button--small button--green">Effettua il
-                    pagamento</button>
+        <template v-if="!orderPlaced">
+            <h4>Inserisci i dati della carta per effettuare il pagamento</h4>
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="dropin-container"></div>
+                    <button id="submit-button" class="button button--small button--green">Effettua il pagamento</button>
+                </div>
             </div>
-        </div>
+        </template>
+        <template v-else>
+            <div class="container">
+                <div class="row">
+                    <h3 class="text-center text-success">Ordine effettuato con successo!</h3>
+                    <div class="border rounded p-3">
+                        <div class="h3 border-bottom pb-1">Riepilogo dell'ordine</div>
+                        <div class="h5 mt-3">I tuoi dati:</div>
+                        <div><span class="fw-bold">Indirizzo:</span> {{ store.orderData.address }}</div>
+                        <div><span class="fw-bold">Telefono:</span> {{ store.orderData.phone_number }}</div>
+                        <div><span class="fw-bold">Email:</span> {{ store.orderData.email }}</div>
+
+                        <div class="h5 mt-3">I piatti che hai ordinato</div>
+                        <div v-for="dish in store.orderData.dishes" class="d-flex gap-3">
+                            <div>{{ dish.quantity }}x</div>
+                            <div>{{ dish.name }}</div>
+                            <div>{{ dish.price }} €</div>
+                        </div>
+
+                        <div class="mt-3"><span class="h5">Totale:</span> {{ store.orderData.price }} €</div>
+                        <div></div>
+                    </div>
+                    <h3 class="text-center mt-4">Riceverai il tuo ordine il prima possibile!</h3>
+
+                </div>
+            </div>
+
+        </template>
     </div>
 </template>
 
@@ -86,9 +123,6 @@ export default {
     border-style: solid;
     border-width: 1px;
     border-radius: 3px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     display: inline-block;
 }
 
@@ -108,5 +142,15 @@ export default {
 .button--green:hover {
     background-color: #8bdda8;
     color: white;
+}
+
+h1,
+p {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }
 </style>

@@ -86,7 +86,7 @@ export default {
                                     </label>
 
                                     <div class="col-md-6">
-                                        <input type="text" v-model="userFullName" class="form-control" id="fullname"
+                                        <input type="text" class="form-control" v-model="userFullName" id="fullname"
                                             pattern=".{5,250}" title="Il nome deve contenere almeno 5 lettere" required>
                                     </div>
                                 </div>
@@ -145,7 +145,26 @@ export default {
 @use '../style/generic';
 @use '../style/partials/variables' as *;
 
+.ms-dish-img {
+    object-fit: cover;
+    object-position: center;
+}
+
 .ms-primary {
     color: $primary-color;
+}
+
+.badge {
+    background-color: $primary-color;
+}
+
+
+// MEDIA QUEARY
+
+@media screen and (max-width: 576px) {
+    .ms-cart {
+        width: 100%;
+        margin-top: 16px;
+    }
 }
 </style>
