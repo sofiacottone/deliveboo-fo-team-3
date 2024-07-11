@@ -99,7 +99,7 @@ export default {
                             <div>{{ dish.price }} €</div>
                         </div>
 
-                        <div class="mt-3"><span class="h5">Totale:</span> {{ store.orderData.price }} €</div>
+                        <div class="mt-3"><span class="h5">Totale:</span> {{ store.orderData.price.toFixed(2) }} €</div>
                         <div></div>
                     </div>
                     <h3 class="text-center mt-4">Riceverai il tuo ordine il prima possibile!</h3>
